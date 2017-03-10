@@ -12,6 +12,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - opcache
 - composer cli
 - git cli
+- vim
 
 ## Usage
 
