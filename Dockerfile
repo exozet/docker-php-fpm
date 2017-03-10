@@ -1,6 +1,8 @@
 FROM php:7.1.2-fpm
 
-RUN apt-get update && apt-get install -y libz-dev libmemcached-dev
+RUN apt-get update && apt-get install -y git
+
+RUN apt-get install -y libz-dev libmemcached-dev
 RUN pecl install memcached
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
