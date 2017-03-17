@@ -1,9 +1,9 @@
-FROM php:7.1.2-fpm
+FROM php:5.5.38-fpm
 
-RUN apt-get update && apt-get install -y git
+RUN apt-get update
 
 RUN apt-get install -y libz-dev libmemcached-dev
-RUN pecl install memcached
+RUN pecl install memcached-2.2.0
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
 # gd extension
@@ -24,4 +24,6 @@ ENV COMPOSER_HOME=/composer
 RUN apt-get install -y wget
 RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet && mv composer.phar /usr/local/bin/composer
 
-RUN apt-get install -y vim
+RUN apt-get install -y git vim
+
+WORKDIR /usr/src/app
