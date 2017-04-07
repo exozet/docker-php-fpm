@@ -21,8 +21,7 @@ RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install opcache
 
 ENV COMPOSER_HOME=/composer
-RUN apt-get install -y wget
-RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet && mv composer.phar /usr/local/bin/composer
+RUN curl -sS https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer | php -- --quiet && mv composer.phar /usr/local/bin/composer
 
 RUN apt-get install -y git vim
 
