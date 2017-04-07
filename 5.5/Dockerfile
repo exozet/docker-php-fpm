@@ -1,4 +1,4 @@
-FROM php:5.5.38-fpm
+FROM php:5.5-fpm
 
 RUN apt-get update
 
