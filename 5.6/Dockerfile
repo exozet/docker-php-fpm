@@ -1,4 +1,4 @@
-FROM php:5.6.30-fpm
+FROM php:5.6-fpm
 
 RUN apt-get update
 
