@@ -3,16 +3,24 @@
 This is a docker php fpm image, based on the official php fpm image. It has the following additions:
 
 - extensions
-  - memcached
-  - gd
-  - zip
-  - intl
-  - mysqli
-  - pdo_mysql
+  - memcached (2.2.0 for php <7.0, 3.0.3 for php >=7.0)
+  - gd (2.1.0)
+    - png (1.2.50)
+    - jpeg (6b)
+    - webp
+    - freetype (2.5.2)
+    - gif create/read
+    - wbmp
+    - xpm
+    - xbm
+  - zip (1.11.0, lib: 0.10.1)
+  - intl (1.1.0, icu: 52.1)
+  - mysqli (5.0.11-dev)
+  - pdo_mysql (5.0.11-dev)
   - opcache
-- composer cli
-- git cli
-- vim
+- composer cli (1.4.1)
+- git cli (2.1.4)
+- vim (7.4)
 
 ## Usage "docker"
 
