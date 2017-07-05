@@ -16,6 +16,8 @@ do
 		docker push exozet/php-fpm:${PHP_VERSION}
 		echo "Pushing exozet/php-fpm:${PHP_VERSION}-sudo"
 		docker push exozet/php-fpm:${PHP_VERSION}-sudo
+		echo "Pushing exozet/php-fpm:${PHP_VERSION}-root"
+		docker push exozet/php-fpm:${PHP_VERSION}-root
 	done
     cd ..
 done
