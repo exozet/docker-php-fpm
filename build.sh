@@ -47,6 +47,23 @@ do
 
 		rm -f sudo-Dockerfile
 
+		echo "FROM php:${PHP_VERSION}-fpm" >> root-Dockerfile
+		cat Dockerfile | grep -v '^FROM' >> root-Dockerfile
+		echo '' >> root-Dockerfile
+		echo 'USER root' >> root-Dockerfile
+
+		echo "Building exozet/php-fpm:${PHP_VERSION}-root"
+		docker build -t exozet/php-fpm:${PHP_VERSION}-root -f root-Dockerfile . >> ../build.log
+
+		if [ "$FOLDER" == "${LATEST_VERSION}/" ]
+		then
+			echo "Building exozet/php-fpm:root"
+			docker build -t exozet/php-fpm:root -f root-Dockerfile . >> ../build.log
+		fi
+
+		rm -f root-Dockerfile
+
+
 	done
     cd ..
 done
