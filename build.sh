@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LATEST_VERSION="7.1.3"
+LATEST_VERSION="7.1.6"
 
 ls -d */ | while read FOLDER
 do
