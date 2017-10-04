@@ -18,6 +18,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - mysqli (5.0.11-dev)
   - pdo_mysql (5.0.11-dev)
   - opcache
+  - soap
 - composer cli (1.4.1)
 - git cli (2.1.4)
 - vim (7.4)
