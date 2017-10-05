@@ -12,6 +12,7 @@ RUN apt-get install -y \
   libfreetype6-dev \
   libjpeg-dev \
   libxpm-dev \
+  libxml2-dev \
   libvpx-dev  # php <7.0 (use libwebp for php >=7.0)
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
@@ -29,6 +30,8 @@ RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 
 RUN docker-php-ext-install opcache
+
+RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
 RUN curl -sS https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer | php -- --quiet && mv composer.phar /usr/local/bin/composer
