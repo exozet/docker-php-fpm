@@ -30,6 +30,9 @@ RUN docker-php-ext-install pdo_mysql
 
 RUN docker-php-ext-install opcache
 
+RUN pecl install xdebug
+RUN echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
+
 ENV COMPOSER_HOME=/composer
 RUN curl -sS https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer | php -- --quiet && mv composer.phar /usr/local/bin/composer
 
