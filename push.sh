@@ -1,23 +1,6 @@
 #!/usr/bin/env bash
 
-LATEST_VERSION="7.1.6"
-
-echo "Pushing exozet/php-fpm"
-docker push exozet/php-fpm
-echo "Pushing exozet/php-fpm:sudo"
-docker push exozet/php-fpm:sudo
-
-ls -d */ | while read FOLDER
+cat *.*/versions | while read PHP_VERSION
 do
-    cd $FOLDER
-	for PHP_VERSION in `cat versions`
-	do
-		echo "Pushing exozet/php-fpm:${PHP_VERSION}"
-		docker push exozet/php-fpm:${PHP_VERSION}
-		echo "Pushing exozet/php-fpm:${PHP_VERSION}-sudo"
-		docker push exozet/php-fpm:${PHP_VERSION}-sudo
-		echo "Pushing exozet/php-fpm:${PHP_VERSION}-root"
-		docker push exozet/php-fpm:${PHP_VERSION}-root
-	done
-    cd ..
+  ./push_version.sh $PHP_VERSION
 done

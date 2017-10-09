@@ -6,11 +6,7 @@ services:
   - docker
 
 script:
-  - export FOLDER=`echo $PHP_VERSION | cut -f 1-2 -d '.'`
-  - cd $FOLDER
-  - echo "FROM php:${PHP_VERSION}-fpm" >> version-Dockerfile
-  - cat Dockerfile | grep -v '^FROM' >> version-Dockerfile
-  - docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile .
+  - ./build_version.sh $PHP_VERSION
   - docker run --rm -it exozet/php-fpm:${PHP_VERSION} php -v
 
 env:
@@ -22,3 +18,12 @@ env:
   - PHP_VERSION=7.0.20
   - PHP_VERSION=5.6.30
   - PHP_VERSION=5.5.38
+
+before_deploy:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+deploy:
+  provider: script
+  script: ./push_version.sh ${PHP_VERSION}
+  on:
+    branch: master
