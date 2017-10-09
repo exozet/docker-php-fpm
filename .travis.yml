@@ -1,0 +1,19 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+script:
+  - export FOLDER=`echo $PHP_VERSION | cut -f 1-2 -d '.'`
+  - cd $FOLDER
+  - echo "FROM php:${PHP_VERSION}-fpm" >> version-Dockerfile
+  - cat Dockerfile | grep -v '^FROM' >> version-Dockerfile
+  - docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile .
+  - docker run --rm -it exozet/php-fpm:${PHP_VERSION} php -v
+
+env:
+  - PHP_VERSION=7.1.2
+  - PHP_VERSION=7.1.3
+  - PHP_VERSION=7.1.6
