@@ -38,4 +38,14 @@ RUN curl -sS https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8b
 
 RUN apt-get install -y git vim
 
+ADD php.ini /usr/local/etc/php/php.ini
+
+ENV PHP_MEMORY_LIMIT=128M \
+    PHP_POST_MAX_SIZE=8M \
+    PHP_MAX_FILE_UPLOADS=20 \
+    PHP_UPLOAD_MAX_FILESIZE=2M \
+    PHP_SESSION_SAVE_HANDLER=files \
+    PHP_SESSION_SAVE_PATH="" \
+    PHP_MAX_INPUT_VARS=1000
+
 WORKDIR /usr/src/app

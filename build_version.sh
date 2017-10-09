@@ -56,3 +56,4 @@ echo "Building exozet/php-fpm:${PHP_VERSION}-root"
 docker build -t exozet/php-fpm:${PHP_VERSION}-root -f root-Dockerfile . >> ../build.log
 
 rm -f root-Dockerfile
+rm -f php.ini
