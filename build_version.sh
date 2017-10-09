@@ -23,8 +23,8 @@ cd $FOLDER
 
 cp ../php.ini php.ini
 
-echo "Pull latest php:${FOLDER}-fpm"
-docker pull "php:${FOLDER}-fpm" >> ../build.log
+echo "Pull latest php:${PHP_VERSION}-fpm"
+docker pull "php:${PHP_VERSION}-fpm" >> ../build.log
 
 echo "Building exozet/php-fpm:${PHP_VERSION}"
 
