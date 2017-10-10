@@ -19,9 +19,20 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - pdo_mysql (5.0.11-dev)
   - xdebug (2.5.5)
   - opcache
+  - soap
 - composer cli (1.4.1)
 - git cli (2.1.4)
 - vim (7.4)
+- possibility to override special php ini settings with environment variables: (see included php.ini for a full list, see [this blog post for reasons](https://dracoblue.net/dev/use-environment-variables-for-php-ini-settings-in-docker/)):
+```ini
+memory_limit=${PHP_MEMORY_LIMIT};
+post_max_size=${PHP_POST_MAX_SIZE};
+max_file_uploads=${PHP_MAX_FILE_UPLOADS};
+upload_max_filesize=${PHP_UPLOAD_MAX_FILESIZE};
+session.save_path=${PHP_SESSION_SAVE_PATH};
+session.save_handler=${PHP_SESSION_SAVE_HANDLER};
+max_input_vars=${PHP_MAX_INPUT_VARS};
+```
 
 ## Usage "docker"
 
