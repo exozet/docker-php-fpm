@@ -17,6 +17,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - intl (1.1.0, icu: 52.1)
   - mysqli (5.0.11-dev)
   - pdo_mysql (5.0.11-dev)
+  - xdebug (2.5.5)
   - opcache
   - soap
 - composer cli (1.4.1)

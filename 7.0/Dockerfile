@@ -31,6 +31,9 @@ RUN docker-php-ext-install pdo_mysql
 
 RUN docker-php-ext-install opcache
 
+RUN pecl install xdebug
+RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
+
 RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
@@ -46,6 +49,13 @@ ENV PHP_MEMORY_LIMIT=128M \
     PHP_UPLOAD_MAX_FILESIZE=2M \
     PHP_SESSION_SAVE_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
-    PHP_MAX_INPUT_VARS=1000
+    PHP_MAX_INPUT_VARS=1000 \
+    PHP_XDEBUG_IDEKEY=''\
+    PHP_XDEBUG_DEFAULT_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_AUTOSTART=0 \
+    PHP_XDEBUG_REMOTE_CONNECT_BACK=0 \
+    PHP_XDEBUG_PROFILER_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_HOST=0
 
 WORKDIR /usr/src/app
