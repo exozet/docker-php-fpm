@@ -39,7 +39,7 @@ max_input_vars=${PHP_MAX_INPUT_VARS};
 ### Run PHP-FPM Server
 
 ```console
-$ docker run --rm -p 9000:9000 -v `pwd`:/usr/src/app exozet/php-fpm
+$ docker run --rm -p 9000:9000 -v `pwd`:/usr/src/app exozet/php-fpm:5.5.38
 ```
 
 ### Run PHP-CLI
@@ -47,13 +47,13 @@ $ docker run --rm -p 9000:9000 -v `pwd`:/usr/src/app exozet/php-fpm
 If you want to launch a shell:
 
 ```console
-$ docker run --rm -it -v `pwd`:/usr/src/app --user www-data exozet/php-fpm bash
+$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 bash
 ```
 
 If you want to run a php command:
 
 ```console
-$ docker run --rm -it -v `pwd`:/usr/src/app --user www-data exozet/php-fpm php -v
+$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 php -v
 PHP 5.5.38 (cli) (built: Aug 10 2016 21:09:37)
 Copyright (c) 1997-2015 The PHP Group
 Zend Engine v2.5.0, Copyright (c) 1998-2015 Zend Technologies
@@ -63,7 +63,7 @@ Zend Engine v2.5.0, Copyright (c) 1998-2015 Zend Technologies
 If you want to run composer:
 
 ```console
-$ docker run --rm -it -v `pwd`:/usr/src/app --user www-data exozet/php-fpm composer --version
+$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 composer --version
 Composer version 1.4.1 2017-03-10 09:29:45
 ```
 
@@ -79,7 +79,7 @@ services:
     image: exozet/php-fpm:5.5.38-sudo
     volumes:
       - ./:/usr/src/app
-    user: www-data
+    user: "${UID-www-data}:${GID-www-data}"
     entrypoint: bash
     depends_on:
       - nginx
@@ -141,6 +141,31 @@ drwxr-xr-x 3 root     root       4096 Mar 17 13:05 ..
 Open the nginx+php-fpm at <http://localhost:8080/>:
 
 ![Screenshot of localhost:8080](./screenshot-php.png)
+
+## Fixing user permissions on linux
+
+Since Docker for MacOS uses osxfs to map from the docker runtime to the osx
+ filesystem, all files will be written with the hosts userid on the hots
+ filesystem. This is actually not the case on linux.
+ 
+To workaround this, we added:
+
+```
+    user: "${UID-www-data}:${GID-www-data}"
+```
+
+to the service definition in the `docker-compose.ym`. If you do this, it will
+use the systems UID (e.g. 1000) or `www-data` as default user+group if `$UID`
+is not set. But you can use a `.env` file with the following
+content:
+
+```text
+UID=1000
+GID=1000
+```
+
+and your local linux user (e.g. 1000 is the default uid on ubuntu) will own the files,
+which are created in your docker container.
 
 ## LICENSE
 
