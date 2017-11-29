@@ -20,6 +20,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - xdebug (2.5.5)
   - opcache
   - soap
+  - bcmath (php 7.0, php 7.1)
 - composer cli (1.4.1)
 - git cli (2.1.4)
 - vim (7.4)
