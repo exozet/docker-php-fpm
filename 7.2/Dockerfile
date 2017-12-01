@@ -31,8 +31,8 @@ RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install opcache
 RUN docker-php-ext-install bcmath
 
-RUN pecl install xdebug
-RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
+#RUN pecl install xdebug
+#RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN docker-php-ext-install soap
 
