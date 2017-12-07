@@ -106,7 +106,7 @@ services:
   crontab:
     image: exozet/php-fpm:7.1.10-sudo
     environment:
-      - CRON_PATH={project-path}/crontabs/
+      - CRON_PATH={project-path}/crontabs
     volumes:
       - ./:/usr/src/app
 ```
