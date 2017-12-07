@@ -21,6 +21,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - opcache
   - soap
   - bcmath
+  - cron
 - composer cli (1.4.1)
 - git cli (2.1.4)
 - vim (7.4)
@@ -67,6 +68,49 @@ If you want to run composer:
 $ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 composer --version
 Composer version 1.4.1 2017-03-10 09:29:45
 ```
+
+## Usage "Cron"
+Create your crontab directory in project folder
+
+put your cron files in the directory
+
+- project-dir
+    - crontabs
+        - my-cron
+        - your-cron
+
+my-cron file
+```console
+*/10 * * * * root php your-command/script >> /var/log/cron.log 2>&1
+*/10 * * * * www-data php your-command/script >> /var/log/cron.log 2>&1
+# Don't remove the empty line at the end of this file. It is required to run the cron job
+```
+
+** Don't forget the define user to run the command
+ex: (root or www-data)
+
+Usage:
+`docker-compose.yml`:
+```yaml
+services:
+  crontab:
+    image: exozet/php-fpm:7.1.10-sudo
+    volumes:
+      - ./:/usr/src/app
+      - ./crontabs:/etc/cron.d
+```
+
+OR
+```yaml
+services:
+  crontab:
+    image: exozet/php-fpm:7.1.10-sudo
+    environment:
+      - CRON_PATH={project-path}/crontabs/
+    volumes:
+      - ./:/usr/src/app
+```
+
 
 ## Usage "docker-compose"
 

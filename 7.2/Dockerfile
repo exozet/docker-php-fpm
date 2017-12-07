@@ -43,6 +43,20 @@ RUN apt-get install -y git vim
 
 ADD php.ini /usr/local/etc/php/php.ini
 
+# Cron
+RUN set -ex \
+    && apt-get clean && apt-get update \
+    && apt-get install -y cron \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkfifo --mode 0666 /var/log/cron.log \
+    && sed --regexp-extended --in-place \
+    's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' \
+    /etc/pam.d/cron
+
+COPY start-cron /usr/sbin
+RUN chmod +x /usr/sbin/start-cron
+# Cron
+
 ENV PHP_MEMORY_LIMIT=128M \
     PHP_POST_MAX_SIZE=8M \
     PHP_MAX_FILE_UPLOADS=20 \
@@ -62,3 +76,5 @@ ENV PHP_MEMORY_LIMIT=128M \
     PHP_XDEBUG_REMOTE_HOST=0
 
 WORKDIR /usr/src/app
+
+CMD ["start-cron"]
