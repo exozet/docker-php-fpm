@@ -28,6 +28,11 @@ env | while read -r line; do  # read STDIN by line
     echo "${var} DEFAULT=\"${val}\"" >> /etc/security/pam_env.conf
 done
 
+if [ "${CRONTAB_CONTENT}" ]; then
+    echo "CRONTAB_CONTENT provided, setting up crontab"
+    echo "$CRONTAB_CONTENT" | crontab -
+fi
+
 # start cron
 service cron start
 
