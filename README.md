@@ -78,6 +78,7 @@ You can define the crontab's content with an environment variable like this:
 services:
   import-data-cron:
     image: exozet/php-fpm:7.1.10
+    command: start-cron
     environment:
       - 'CRONTAB_CONTENT=* * * * * php run-import.php >> /var/log/cron.log 2>&1'
     volumes:
@@ -117,7 +118,8 @@ Usage in your `docker-compose.yml`:
 ```yaml
 services:
   crontab:
-    image: exozet/php-fpm:7.1.10-sudo
+    image: exozet/php-fpm:7.1.10
+    command: start-cron
     volumes:
       - ./:/usr/src/app
       - ./crontabs:/etc/cron.d
@@ -129,7 +131,8 @@ cron location with the `CRON_PATH` environment variable:
 ```yaml
 services:
   crontab:
-    image: exozet/php-fpm:7.1.10-sudo
+    image: exozet/php-fpm:7.1.10
+    command: start-cron
     environment:
       - CRON_PATH=/usr/src/app/crontabs
     volumes:
