@@ -21,10 +21,10 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - opcache
   - soap
   - bcmath
-  - cron
 - composer cli (1.4.1)
 - git cli (2.1.4)
 - vim (7.4)
+- cron/crontab with `start-cron` executable
 - possibility to override special php ini settings with environment variables: (see included php.ini for a full list, see [this blog post for reasons](https://dracoblue.net/dev/use-environment-variables-for-php-ini-settings-in-docker/)):
 ```ini
 memory_limit=${PHP_MEMORY_LIMIT};
