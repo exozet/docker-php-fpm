@@ -24,6 +24,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
 - composer cli (1.4.1)
 - git cli (2.1.4)
 - vim (7.4)
+- cron/crontab with `start-cron` executable
 - possibility to override special php ini settings with environment variables: (see included php.ini for a full list, see [this blog post for reasons](https://dracoblue.net/dev/use-environment-variables-for-php-ini-settings-in-docker/)):
 ```ini
 memory_limit=${PHP_MEMORY_LIMIT};
@@ -66,6 +67,73 @@ If you want to run composer:
 ```console
 $ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 composer --version
 Composer version 1.4.1 2017-03-10 09:29:45
+```
+
+## Using "Cron": Setting `CRONTAB_CONTENT`
+
+You can define the crontab's content with an environment variable like this:
+
+`docker-compose.yml`:
+```yaml
+services:
+  import-data-cron:
+    image: exozet/php-fpm:7.1.10
+    environment:
+      - 'CRONTAB_CONTENT=* * * * * php run-import.php >> /var/log/cron.log 2>&1'
+    volumes:
+      - ./:/usr/src/app:cached
+```
+
+It's very important to specify `/var/log/cron.log` as response for all outputs of your
+cronjob, since crontab will otherwise try to send the response by email, which cannot work
+in this docker setup.
+
+We recommend to use **one** cronjob/container to ensure that your monitoring, restarting, recovery and
+ so on works properly. Otherwise you don't **know**, which of your cronjobs is consuming which amount of
+ resources.
+
+## Alternative way to use "Cron": Mounting `/etc/cron.d` OR setting `CRON_PATH`
+
+**Hint:** Please use this way only, if the previous way (setting `CRONTAB_CONTENT` Environment variable) does not work for your
+project.
+
+Create your crontab directory in project folder and put all your cron files in this directory.
+
+`crontabs` directory:
+```text
+  - one-cron
+  - other-cron
+```
+`one-cron` file:
+```console
+*/10 * * * * root php your-command/script >> /var/log/cron.log 2>&1
+# Don't remove the empty line at the end of this file. It is required to run the cron job
+```
+
+Even though it's possible, we do not recommend to use **multiple** cronjob/container in one crontab file. This makes
+monitoring the different cron jobs harder for your operation/monitoring/alerting tools.
+
+Usage in your `docker-compose.yml`:
+```yaml
+services:
+  crontab:
+    image: exozet/php-fpm:7.1.10-sudo
+    volumes:
+      - ./:/usr/src/app
+      - ./crontabs:/etc/cron.d
+```
+
+If your cron folder is already part or your project, you can override the
+cron location with the `CRON_PATH` environment variable:
+
+```yaml
+services:
+  crontab:
+    image: exozet/php-fpm:7.1.10-sudo
+    environment:
+      - CRON_PATH=/usr/src/app/crontabs
+    volumes:
+      - ./:/usr/src/app
 ```
 
 ## Usage "docker-compose"
