@@ -7,6 +7,7 @@ services:
 
 script:
   - ./build_version.sh $PHP_VERSION
+  - docker run --rm -it exozet/php-fpm:${PHP_VERSION} php -i
   - docker run --rm -it exozet/php-fpm:${PHP_VERSION} php -v
 
 env:

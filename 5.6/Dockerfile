@@ -13,6 +13,7 @@ RUN apt-get install -y \
   libjpeg-dev \
   libxpm-dev \
   libxml2-dev \
+  libxslt-dev \
   libvpx-dev  # php <7.0 (use libwebp for php >=7.0)
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
@@ -22,6 +23,7 @@ RUN docker-php-ext-configure gd \
 RUN docker-php-ext-install gd
 
 RUN docker-php-ext-install zip
+RUN docker-php-ext-install xsl
 
 RUN apt-get install -y libicu-dev
 RUN docker-php-ext-install intl
