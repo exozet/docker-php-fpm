@@ -6,6 +6,8 @@ RUN apt-get install -y libz-dev libmemcached-dev
 RUN pecl install memcached-2.2.0
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
+RUN apt-get install -y bzip2
+
 # gd extension
 RUN apt-get install -y \
   libpng-dev \
