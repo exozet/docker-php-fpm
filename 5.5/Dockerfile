@@ -41,7 +41,7 @@ RUN docker-php-ext-install soap
 ENV COMPOSER_HOME=/composer
 RUN curl -sS https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer | php -- --quiet && mv composer.phar /usr/local/bin/composer
 
-RUN apt-get install -y git vim mysql-client rsync sshpass
+RUN apt-get install -y git vim mysql-client rsync sshpass bzip2
 
 ADD php.ini /usr/local/etc/php/php.ini
 
