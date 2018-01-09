@@ -26,7 +26,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - bcmath
   - xml
   - xsl
-- composer cli (1.4.1)
+- composer cli (1.6)
 - git cli (2.1.4)
 - vim (7.4)
 - mysql-client (mysql Ver 14.14 Distrib 5.5.58)
