@@ -39,6 +39,10 @@ env:
   - PHP_VERSION=5.6.34
   - PHP_VERSION=5.5.38
 
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+
 before_deploy:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
