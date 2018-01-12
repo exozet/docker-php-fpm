@@ -76,8 +76,7 @@ ENV PHP_MEMORY_LIMIT=128M \
 
 WORKDIR /usr/src/app
 
-#New for imagick
-RUN apt-get install -y php5-imagick libmagickwand-dev libmagickcore-dev
-RUN pecl install imagick
-RUN echo "[Imagick]" >> /usr/local/etc/php/php.ini
-RUN echo "extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/imagick.so" >> /usr/local/etc/php/conf.d/xdebug.ini
+# imagick
+RUN apt-get install -y libmagickwand-dev \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
