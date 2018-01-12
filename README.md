@@ -14,6 +14,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
     - xpm
     - xbm
   - zip (1.11.0, lib: 0.10.1)
+  - imagick
   - intl (1.1.0, icu: 52.1)
   - mysqli (5.0.11-dev)
   - pdo_mysql (5.0.11-dev)
