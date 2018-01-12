@@ -75,3 +75,8 @@ ENV PHP_MEMORY_LIMIT=128M \
     PHP_XDEBUG_REMOTE_HOST=0
 
 WORKDIR /usr/src/app
+
+# imagick
+RUN apt-get install -y libmagickwand-dev \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
