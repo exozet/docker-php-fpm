@@ -14,6 +14,7 @@ RUN apt-get install -y \
   libxpm-dev \
   libxml2-dev \
   libxslt-dev \
+  libmcrypt-dev \
   libvpx-dev  # php <7.0 (use libwebp for php >=7.0)
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
@@ -32,6 +33,7 @@ RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install opcache
 RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install mcrypt
 
 RUN pecl install xdebug
 RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
