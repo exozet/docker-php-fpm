@@ -6,6 +6,10 @@ RUN apt-get install -y libz-dev libmemcached-dev
 RUN pecl install memcached-3.0.3
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
+RUN apt-get install -y libz-dev libmcrypt-dev
+RUN yes '' | pecl install -f mcrypt-1.0.1
+RUN echo extension=mcrypt.so >> /usr/local/etc/php/conf.d/mcrypt.ini
+
 # gd extension
 RUN apt-get install -y \
   libpng-dev \
@@ -14,7 +18,6 @@ RUN apt-get install -y \
   libxpm-dev \
   libxml2-dev \
   libxslt-dev \
-  libmcrypt-dev \
   libwebp-dev  # php >=7.0 (use libvpx for php <7.0)
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
