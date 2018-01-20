@@ -36,7 +36,6 @@ RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install opcache
 RUN docker-php-ext-install bcmath
-RUN docker-php-ext-install mcrypt
 
 RUN pecl install xdebug-2.6.0alpha1
 RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
