@@ -6,10 +6,6 @@ RUN apt-get install -y libz-dev libmemcached-dev
 RUN pecl install memcached-3.0.3
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
-RUN apt-get install -y libz-dev libmcrypt-dev
-RUN yes '' | pecl install -f mcrypt-1.0.1
-RUN echo extension=mcrypt.so >> /usr/local/etc/php/conf.d/mcrypt.ini
-
 # gd extension
 RUN apt-get install -y \
   libpng-dev \
@@ -40,7 +36,7 @@ RUN docker-php-ext-install bcmath
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
-RUN pecl install xdebug-2.6.0alpha1
+RUN pecl install xdebug-2.6.0beta1
 RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN docker-php-ext-install soap
