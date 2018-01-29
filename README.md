@@ -43,6 +43,7 @@ upload_max_filesize=${PHP_UPLOAD_MAX_FILESIZE};
 session.save_path=${PHP_SESSION_SAVE_PATH};
 session.save_handler=${PHP_SESSION_SAVE_HANDLER};
 max_input_vars=${PHP_MAX_INPUT_VARS};
+max_execution_time=${PHP_MAX_EXECUTION_TIME};
 ```
 
 ## Usage "docker"
