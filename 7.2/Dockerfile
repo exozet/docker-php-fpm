@@ -36,7 +36,7 @@ RUN docker-php-ext-install bcmath
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
-RUN pecl install xdebug-2.6.0beta1
+RUN pecl install xdebug-2.6.0
 RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN docker-php-ext-install soap
