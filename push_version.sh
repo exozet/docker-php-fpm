@@ -3,6 +3,7 @@
 set -e
 
 PHP_VERSION=$1
+PHP_VERSION_ALIAS=$2
 
 if [ -z "$PHP_VERSION" ]
 then
@@ -17,3 +18,23 @@ echo "Pushing exozet/php-fpm:${PHP_VERSION}-sudo"
 docker push exozet/php-fpm:${PHP_VERSION}-sudo
 echo "Pushing exozet/php-fpm:${PHP_VERSION}-root"
 docker push exozet/php-fpm:${PHP_VERSION}-root
+
+if [ "$PHP_VERSION_ALIAS" ]
+then
+  echo "Version alias found!"
+
+  echo "Tagging exozet/php-fpm:${PHP_VERSION_ALIAS} based on exozet/php-fpm:${PHP_VERSION}"
+  docker tag exozet/php-fpm:${PHP_VERSION} exozet/php-fpm:${PHP_VERSION_ALIAS}
+  echo "Pushing exozet/php-fpm:${PHP_VERSION_ALIAS}"
+  docker push exozet/php-fpm:${PHP_VERSION_ALIAS}
+
+  echo "Tagging exozet/php-fpm:${PHP_VERSION_ALIAS}-sudo based on exozet/php-fpm:${PHP_VERSION}-sudo"
+  docker tag exozet/php-fpm:${PHP_VERSION}-sudo exozet/php-fpm:${PHP_VERSION_ALIAS}-sudo
+  echo "Pushing exozet/php-fpm:${PHP_VERSION_ALIAS}-sudo"
+  docker push exozet/php-fpm:${PHP_VERSION_ALIAS}-sudo
+
+  echo "Tagging exozet/php-fpm:${PHP_VERSION_ALIAS}-root based on exozet/php-fpm:${PHP_VERSION}-root"
+  docker tag exozet/php-fpm:${PHP_VERSION}-root exozet/php-fpm:${PHP_VERSION_ALIAS}-root
+  echo "Pushing exozet/php-fpm:${PHP_VERSION_ALIAS}-root"
+  docker push exozet/php-fpm:${PHP_VERSION_ALIAS}-root
+fi
