@@ -84,3 +84,11 @@ WORKDIR /usr/src/app
 RUN apt-get install -y libmagickwand-dev \
     && pecl install imagick \
     && docker-php-ext-enable imagick
+
+RUN apt-get install -y \
+    ffmpeg \
+    supervisor
+
+RUN update-rc.d supervisor defaults
+RUN update-rc.d supervisor enable
+RUN service supervisor restart
