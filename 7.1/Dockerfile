@@ -15,6 +15,7 @@ RUN apt-get install -y \
   libxml2-dev \
   libxslt-dev \
   libmcrypt-dev \
+  libldap2-dev \
   libwebp-dev  # php >=7.0 (use libvpx for php <7.0)
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
