@@ -15,7 +15,6 @@ RUN apt-get install -y \
   libxml2-dev \
   libxslt-dev \
   libmcrypt-dev \
-  libldap2-dev \
   libwebp-dev  # php >=7.0 (use libvpx for php <7.0)
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
@@ -36,7 +35,13 @@ RUN docker-php-ext-install opcache
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install calendar
 RUN docker-php-ext-install mcrypt
-RUN docker-php-ext-install ldap
+
+# ldap
+RUN apt-get install libldap2-dev -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+    docker-php-ext-install ldap
+# ldap  
 
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
