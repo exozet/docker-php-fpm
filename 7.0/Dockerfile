@@ -1,13 +1,11 @@
 FROM php:7.0-fpm
 
-RUN apt-get update
-
-RUN apt-get install -y libz-dev libmemcached-dev
+RUN apt-get update && apt-get install -y libz-dev libmemcached-dev
 RUN pecl install memcached-3.0.3
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
 # gd extension
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
   libpng-dev \
   libfreetype6-dev \
   libjpeg-dev \
@@ -26,7 +24,7 @@ RUN docker-php-ext-install gd
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install xsl
 
-RUN apt-get install -y libicu-dev
+RUN apt-get update && apt-get install -y libicu-dev
 RUN docker-php-ext-install intl
 
 RUN docker-php-ext-install mysqli
@@ -37,7 +35,7 @@ RUN docker-php-ext-install calendar
 RUN docker-php-ext-install mcrypt
 
 # ldap
-RUN apt-get install libldap2-dev -y && \
+RUN apt-get update && apt-get install libldap2-dev -y && \
     rm -rf /var/lib/apt/lists/* && \
     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
     docker-php-ext-install ldap
@@ -54,12 +52,12 @@ RUN docker-php-ext-install soap
 ENV COMPOSER_HOME=/composer
 COPY --from=composer:1.6.3 /usr/bin/composer /usr/local/bin/composer
 
-RUN apt-get install -y git vim mysql-client rsync sshpass bzip2
+RUN apt-get update && apt-get install -y git vim mysql-client rsync sshpass bzip2
 
 ADD php.ini /usr/local/etc/php/php.ini
 
 # Cron
-RUN apt-get install -y cron \
+RUN apt-get update && apt-get install -y cron \
     && mkfifo --mode 0666 /var/log/cron.log \
     && sed --regexp-extended --in-place \
     's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' \
@@ -91,6 +89,6 @@ ENV PHP_MEMORY_LIMIT=128M \
 WORKDIR /usr/src/app
 
 # imagick
-RUN apt-get install -y libmagickwand-dev \
+RUN apt-get update && apt-get install -y libmagickwand-dev \
     && pecl install imagick \
     && docker-php-ext-enable imagick
