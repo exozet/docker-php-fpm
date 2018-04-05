@@ -27,6 +27,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - xml
   - xsl
   - calendar
+  - ldap
 - composer cli (1.6.3)
 - git cli (2.1.4)
 - vim (7.4)

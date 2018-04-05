@@ -35,6 +35,7 @@ RUN docker-php-ext-install opcache
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install calendar
 RUN docker-php-ext-install mcrypt
+RUN docker-php-ext-install ldap
 
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
