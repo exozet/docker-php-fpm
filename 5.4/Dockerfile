@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
   libvpx-dev  # php <7.0 (use libwebp for php >=7.0)
 
 # php <5.5 only workaround for xpm
-RUN ln -s /usr/lib/x86_64-linux-gnu/libXpm.{a,so} /usr/lib/
+RUN ln -s /usr/lib/x86_64-linux-gnu/libXpm.a /usr/lib/x86_64-linux-gnu/libXpm.so /usr/lib/
 
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
