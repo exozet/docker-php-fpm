@@ -33,6 +33,9 @@ RUN docker-php-ext-install intl
 
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
+# use apc instead of opcache on php <5.5
+RUN pecl install apc
+RUN docker-php-ext-enable apc
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install calendar
 RUN docker-php-ext-install mcrypt
