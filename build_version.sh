@@ -22,6 +22,7 @@ fi
 cd $FOLDER
 
 cp ../php.ini php.ini
+cp ../php-fpm.conf php-fpm.conf
 cp ../start-cron start-cron
 
 echo "Pull latest php:${PHP_VERSION}-fpm"
@@ -58,3 +59,4 @@ docker build -t exozet/php-fpm:${PHP_VERSION}-root -f root-Dockerfile . >> ../bu
 
 rm -f root-Dockerfile
 rm -f php.ini
+rm -f php-fpm.conf
