@@ -55,6 +55,7 @@ COPY --from=composer:1.6.3 /usr/bin/composer /usr/local/bin/composer
 RUN apt-get update && apt-get install -y git vim mysql-client rsync sshpass bzip2
 
 ADD php.ini /usr/local/etc/php/php.ini
+ADD php-fpm.conf /usr/local/etc/php-fpm.d/docker.conf
 
 # Cron
 RUN apt-get update && apt-get install -y cron \
