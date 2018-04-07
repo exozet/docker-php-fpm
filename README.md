@@ -49,6 +49,7 @@ session.save_handler=${PHP_SESSION_SAVE_HANDLER};
 max_input_vars=${PHP_MAX_INPUT_VARS};
 max_execution_time=${PHP_MAX_EXECUTION_TIME};
 ```
+- override php fpm config with environment variables similiar to php.ini (see repositories php-fpm.conf for all possible values)
 
 ## Usage "docker"
 
