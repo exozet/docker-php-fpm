@@ -40,14 +40,25 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
 - `max_execution_time=0` even in php-fpm (use `PHP_MAX_EXECUTION_TIME` environment variable to override it)
 - possibility to override special php ini settings with environment variables: (see included php.ini for a full list, see [this blog post for reasons](https://dracoblue.net/dev/use-environment-variables-for-php-ini-settings-in-docker/)):
 ```ini
+date.timezone=${PHP_DATE_TIMEZONE};
+log_errors_max_len=${PHP_LOG_ERRORS_MAX_LEN};
+log_errors=${PHP_LOG_ERRORS};
+max_execution_time=${PHP_MAX_EXECUTION_TIME};
+max_file_uploads=${PHP_MAX_FILE_UPLOADS};
+max_input_vars=${PHP_MAX_INPUT_VARS};
 memory_limit=${PHP_MEMORY_LIMIT};
 post_max_size=${PHP_POST_MAX_SIZE};
-max_file_uploads=${PHP_MAX_FILE_UPLOADS};
-upload_max_filesize=${PHP_UPLOAD_MAX_FILESIZE};
-session.save_path=${PHP_SESSION_SAVE_PATH};
+sendmail_path=${PHP_SENDMAIL_PATH}
 session.save_handler=${PHP_SESSION_SAVE_HANDLER};
-max_input_vars=${PHP_MAX_INPUT_VARS};
-max_execution_time=${PHP_MAX_EXECUTION_TIME};
+session.save_path=${PHP_SESSION_SAVE_PATH};
+upload_max_filesize=${PHP_UPLOAD_MAX_FILESIZE};
+xdebug.default_enable=${PHP_XDEBUG_DEFAULT_ENABLE}
+xdebug.idekey=${PHP_XDEBUG_IDEKEY}
+xdebug.profiler_enable=${PHP_XDEBUG_PROFILER_ENABLE}
+xdebug.remote_autostart=${PHP_XDEBUG_REMOTE_AUTOSTART}
+xdebug.remote_connect_back=${PHP_XDEBUG_REMOTE_CONNECT_BACK}
+xdebug.remote_enable=${PHP_XDEBUG_REMOTE_ENABLE}
+xdebug.remote_host=${PHP_XDEBUG_REMOTE_HOST}
 ```
 
 ## Usage "docker"
