@@ -36,6 +36,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
 - rsync (3.1.1)
 - sshpass (1.05)
 - bzip2
+- msmtp
 - cron/crontab with `start-cron` executable
 - `max_execution_time=0` even in php-fpm (use `PHP_MAX_EXECUTION_TIME` environment variable to override it)
 - possibility to override special php ini settings with environment variables: (see included php.ini for a full list, see [this blog post for reasons](https://dracoblue.net/dev/use-environment-variables-for-php-ini-settings-in-docker/)):
@@ -93,6 +94,41 @@ If you want to run composer:
 $ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 composer --version
 Composer version 1.4.1 2017-03-10 09:29:45
 ```
+
+## Sending E-Mail
+
+Since there is no exim or something like this running in your docker image, it's not possible to send emails with `mail()`
+ out of the box on php with docker. But this image ships with [msmtp](https://wiki.archlinux.org/index.php/msmtp) and a configurable sendmail path.
+
+Thus you can configure send mail for instance like this:
+
+```text
+PHP_SENDMAIL_PATH=/usr/bin/msmtp -t --host=smtp.example.org --port=1025
+```
+
+and `mail('hans@example.org', 'subject', 'message!');` will use the smtp host at `smtp.example.org`.
+
+We recommend to use a service like [mailhog](https://hub.docker.com/r/mailhog/mailhog/) as a service to fetch mails
+on development.
+
+This in your `docker-compose.yaml`:
+
+```yaml
+services:
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - "1025"
+      - "8025:8025"
+```
+
+makes a mailhog server at `http://127.0.0.1:8025` available. If you set 
+
+```text
+PHP_SENDMAIL_PATH=/usr/bin/msmtp -t --host=mailhog --port=1025
+```
+
+all your mails will be visible there.
 
 ## Using "Cron": Setting `CRONTAB_CONTENT`
 
