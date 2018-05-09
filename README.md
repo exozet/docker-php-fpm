@@ -29,7 +29,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - xsl
   - calendar
   - ldap
-- composer cli (1.6.3)
+- composer cli (1.6.5)
 - git cli (2.1.4)
 - vim (7.4)
 - mysql-client (mysql Ver 14.14 Distrib 5.5.58)
