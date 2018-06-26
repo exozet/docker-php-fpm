@@ -300,6 +300,24 @@ GID=1000
 and your local linux user (e.g. 1000 is the default uid on ubuntu) will own the files,
 which are created in your docker container.
 
+## Use host ssh credentials inside container
+
+docker-compose.yml
+
+```yaml
+#[...]
+volumes:
+    - ~/.ssh/:/var/www/.ssh
+#[...]
+```
+or add this to docker run:
+
+```bash
+$ docker run -v /host/directory:/container/directory #[...]
+```
+
+
+
 ## LICENSE
 
 The docker-php-fpm is copyright by Exozet (http://exozet.com) and licensed under the terms of MIT License.
