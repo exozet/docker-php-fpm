@@ -300,7 +300,7 @@ GID=1000
 and your local linux user (e.g. 1000 is the default uid on ubuntu) will own the files,
 which are created in your docker container.
 
-## Use host ssh credentials inside container
+## Use host SSH credentials inside container
 
 docker-compose.yml
 
