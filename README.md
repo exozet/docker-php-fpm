@@ -310,13 +310,11 @@ volumes:
     - ~/.ssh/:/var/www/.ssh
 #[...]
 ```
-or add this to docker run:
+or add this to your docker run command:
 
 ```bash
-$ docker run -v /host/directory:/container/directory #[...]
+-v ~/.ssh/:/var/www/.ssh --user www-data
 ```
-
-
 
 ## LICENSE
 
