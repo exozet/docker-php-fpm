@@ -303,6 +303,8 @@ which are created in your docker container.
 
 ## Use host SSH credentials inside container
 
+You need to use /var/www/... here, since it's the HOME directory of www-data user.
+
 docker-compose.yml
 
 ```yaml
