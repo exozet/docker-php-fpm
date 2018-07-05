@@ -307,13 +307,13 @@ docker-compose.yml
 ```yaml
 #[...]
 volumes:
-    - ~/.ssh/:/usr/src/app/.ssh
+    - ~/.ssh/:/var/www/.ssh # ATTENTION! you need to use /var/www/... here, it is the HOME directory of www-data user
 #[...]
 ```
 or add this to your docker run command:
 
 ```bash
--v ~/.ssh/:/usr/src/app/.ssh --user www-data
+-v ~/.ssh/:/var/www/.ssh --user www-data # ATTENTION! you need to use /var/www/... here, it is the HOME directory of www-data user
 ```
 
 ## LICENSE
