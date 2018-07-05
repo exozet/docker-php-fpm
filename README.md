@@ -307,13 +307,13 @@ docker-compose.yml
 ```yaml
 #[...]
 volumes:
-    - ~/.ssh/:/var/www/.ssh
+    - ~/.ssh/:/usr/src/app/.ssh
 #[...]
 ```
 or add this to your docker run command:
 
 ```bash
--v ~/.ssh/:/var/www/.ssh --user www-data
+-v ~/.ssh/:/usr/src/app/.ssh --user www-data
 ```
 
 ## LICENSE
