@@ -302,18 +302,20 @@ which are created in your docker container.
 
 ## Use host SSH credentials inside container
 
+You need to use /var/www/... here, since it's the HOME directory of www-data user.
+
 docker-compose.yml
 
 ```yaml
 #[...]
 volumes:
-    - ~/.ssh/:/var/www/.ssh # ATTENTION! you need to use /var/www/... here, it is the HOME directory of www-data user
+    - ~/.ssh/:/var/www/.ssh
 #[...]
 ```
 or add this to your docker run command:
 
 ```bash
--v ~/.ssh/:/var/www/.ssh --user www-data # ATTENTION! you need to use /var/www/... here, it is the HOME directory of www-data user
+-v ~/.ssh/:/var/www/.ssh --user www-data
 ```
 
 ## LICENSE
