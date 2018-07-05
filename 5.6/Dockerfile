@@ -1,5 +1,11 @@
 FROM php:5.6-fpm
 
+# ssh2
+RUN apt-get update && apt-get install -y libssh2-1-dev libssh2-1
+RUN pecl install ssh2-0.13
+RUN echo extension=ssh2.so >> /usr/local/etc/php/conf.d/ssh2.ini
+# ssh2
+
 RUN apt-get update && apt-get install -y libz-dev libmemcached-dev
 RUN pecl install memcached-2.2.0
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
