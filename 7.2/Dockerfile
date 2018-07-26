@@ -56,7 +56,7 @@ RUN docker-php-ext-install soap
 ENV COMPOSER_HOME=/composer
 COPY --from=composer:1.6.5 /usr/bin/composer /usr/local/bin/composer
 
-RUN apt-get update && apt-get install -y git vim mysql-client rsync sshpass bzip2 msmtp
+RUN apt-get update && apt-get install -y git vim mysql-client rsync sshpass bzip2 msmtp unzip
 
 ADD php.ini /usr/local/etc/php/php.ini
 
