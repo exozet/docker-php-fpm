@@ -38,6 +38,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
 - sshpass (1.05)
 - bzip2
 - msmtp
+- unzip
 - cron/crontab with `start-cron` executable
 - `max_execution_time=0` even in php-fpm (use `PHP_MAX_EXECUTION_TIME` environment variable to override it)
 - possibility to override special php ini settings with environment variables: (see included php.ini for a full list, see [this blog post for reasons](https://dracoblue.net/dev/use-environment-variables-for-php-ini-settings-in-docker/)):
