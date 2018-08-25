@@ -132,7 +132,7 @@ PHP_SENDMAIL_PATH=/usr/bin/msmtp -t --host=mailhog --port=1025
 
 all your mails will be visible there.
 
-## Using "Cron": Setting `CRONTAB_CONTENT`
+## Using "Cron": Setting `CRONTAB_CONTENT` and `CRONTAB_USER`
 
 You can define the crontab's content with an environment variable like this:
 
@@ -143,7 +143,10 @@ services:
     image: exozet/php-fpm:7.1.10
     command: start-cron
     environment:
-      - 'CRONTAB_CONTENT=* * * * * php run-import.php >> /var/log/cron.log 2>&1'
+      - 'CRONTAB_USER=www-data'
+      - |
+         CRONTAB_CONTENT=
+         */10 * * * * cd /usr/src/app && php run-import.php >> /var/log/cron.log 2>&1
     volumes:
       - ./:/usr/src/app:cached
 ```
