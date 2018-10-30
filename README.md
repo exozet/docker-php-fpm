@@ -19,6 +19,8 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - mcrypt (for php <7.2, since it's removed since 7.2)
   - mysqli (5.0.11-dev)
   - pdo_mysql (5.0.11-dev)
+  - pdo_pgsql
+  - pgsql
   - xdebug (2.4.0 for php <5.5, 2.5.5 for php <7.0, 2.6.0 for php >=7.0)
   - opcache (for php >=5.5, since it's replacing apc since 5.5)
   - apc (for php <5.5, since it's replaced by opcache since 5.5)
