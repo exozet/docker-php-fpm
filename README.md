@@ -33,6 +33,8 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - ldap
   - redis
   - ssh2 (0.13 for php 5 and 1.1.3 for php 7 https://pecl.php.net/package/ssh2)
+  - amqp
+  - sockets
 - composer cli (1.7.1)
 - git cli (2.1.4)
 - vim (7.4)
