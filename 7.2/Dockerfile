@@ -18,12 +18,18 @@ RUN apt-get update && apt-get install -y \
   libxpm-dev \
   libxml2-dev \
   libxslt-dev \
+  librabbitmq-dev \
+  libssh-dev \
   libwebp-dev  # php >=7.0 (use libvpx for php <7.0)
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ \
     --with-xpm-dir=/usr/include \
     --with-webp-dir=/usr/include/ # php >=7.0 (use libvpx for php <7.0)
+
+RUN pecl install amqp
+RUN docker-php-ext-enable amqp
+
 RUN docker-php-ext-install gd
 
 RUN docker-php-ext-install zip
@@ -37,6 +43,7 @@ RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install opcache
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install calendar
+RUN docker-php-ext-install sockets
 
 RUN pecl install redis \
     && docker-php-ext-enable redis
