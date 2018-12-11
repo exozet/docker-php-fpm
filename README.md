@@ -32,7 +32,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - calendar
   - ldap
   - redis
-  - ssh2 (0.13 for php 5 and 1.1.3 for php 7 https://pecl.php.net/package/ssh2)
+  - ssh2 (0.13 for php 5 and 1.1.3 for php 7 https://pecl.php.net/package/ssh2, currently disabled in 7.3)
   - amqp
   - sockets
 - composer cli (1.8.0)
