@@ -26,6 +26,7 @@ RUN docker-php-ext-configure gd \
     --with-webp-dir=/usr/include/ # php >=7.0 (use libvpx for php <7.0)
 RUN docker-php-ext-install gd
 
+RUN apt-get update && apt-get install -y libz-dev
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install xsl
 
