@@ -3,7 +3,7 @@
 This is a docker php fpm image, based on the official php fpm image. It has the following additions:
 
 - extensions
-  - memcached (2.2.0 for php <7.0, 3.0.3 for php >=7.0)
+  - memcached (2.2.0 for php <7.0, 3.0.3 for php >=7.0, currently disabled in 7.3)
   - gd (2.1.0)
     - png (1.2.50)
     - jpeg (6b)
@@ -21,7 +21,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - pdo_mysql (5.0.11-dev)
   - pdo_pgsql
   - pgsql
-  - xdebug (2.4.0 for php <5.5, 2.5.5 for php <7.0, 2.6.1 for php >=7.0)
+  - xdebug (2.4.0 for php <5.5, 2.5.5 for php <7.0, 2.6.1 for php 7.0, 7.1 & 7.2, 2.7.0beta1 for php 7.3)
   - opcache (for php >=5.5, since it's replacing apc since 5.5)
   - apc (for php <5.5, since it's replaced by opcache since 5.5)
   - pcntl
@@ -32,7 +32,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - calendar
   - ldap
   - redis
-  - ssh2 (0.13 for php 5 and 1.1.3 for php 7 https://pecl.php.net/package/ssh2)
+  - ssh2 (0.13 for php 5 and 1.1.3 for php 7 https://pecl.php.net/package/ssh2, currently disabled in 7.3)
   - amqp
   - sockets
 - composer cli (1.8.0)
