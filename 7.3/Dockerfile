@@ -6,9 +6,9 @@ FROM php:7.3-fpm
 #RUN echo extension=ssh2.so >> /usr/local/etc/php/conf.d/ssh2.ini
 ## ssh2
 
-#RUN apt-get update && apt-get install -y libz-dev libmemcached-dev
-#RUN pecl install memcached-3.0.4
-#RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
+RUN apt-get update && apt-get install -y libz-dev libmemcached-dev
+RUN pecl install memcached-3.1.2
+RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
 # gd extension
 RUN apt-get update && apt-get install -y \

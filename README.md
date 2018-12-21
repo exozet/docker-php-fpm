@@ -3,7 +3,7 @@
 This is a docker php fpm image, based on the official php fpm image. It has the following additions:
 
 - extensions
-  - memcached (2.2.0 for php <7.0, 3.0.4 for php >=7.0, currently disabled in 7.3)
+  - memcached (2.2.0 for php <7.0, 3.1.2 for php >=7.0)
   - gd (2.1.0)
     - png (1.2.50)
     - jpeg (6b)
