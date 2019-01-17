@@ -28,7 +28,7 @@ RUN docker-php-ext-configure gd \
     --with-xpm-dir=/usr/include \
     --with-vpx-dir=/usr/include/ # php <7.0 (use webp for php >=7.0)
 
-RUN pecl install amqp
+RUN pecl install amqp-1.9.1
 RUN docker-php-ext-enable amqp
 
 RUN docker-php-ext-install gd
@@ -91,7 +91,7 @@ ENV PHP_DATE_TIMEZONE="" \
     PHP_MAX_INPUT_VARS=1000 \
     PHP_MEMORY_LIMIT=128M \
     PHP_POST_MAX_SIZE=8M \
-    PHP_SENDMAIL_PATH="/usr/sbin/sendmail -t -i" \        
+    PHP_SENDMAIL_PATH="/usr/sbin/sendmail -t -i" \
     PHP_SESSION_SAVE_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
     PHP_UPLOAD_MAX_FILESIZE=2M \

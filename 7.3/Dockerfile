@@ -18,6 +18,8 @@ RUN apt-get update && apt-get install -y \
   libxpm-dev \
   libxml2-dev \
   libxslt-dev \
+  librabbitmq-dev \
+  libssh-dev \
   libwebp-dev  # php >=7.0 (use libvpx for php <7.0)
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
@@ -25,6 +27,9 @@ RUN docker-php-ext-configure gd \
     --with-xpm-dir=/usr/include \
     --with-webp-dir=/usr/include/ # php >=7.0 (use libvpx for php <7.0)
 RUN docker-php-ext-install gd
+
+RUN pecl install amqp-1.9.4
+RUN docker-php-ext-enable amqp
 
 RUN apt-get update && apt-get install -y libz-dev libzip-dev
 RUN docker-php-ext-install zip
@@ -38,13 +43,17 @@ RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install opcache
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install calendar
+RUN docker-php-ext-install sockets
+
+RUN pecl install redis \
+    && docker-php-ext-enable redis
 
 # ldap
 RUN apt-get update && apt-get install libldap2-dev -y && \
     rm -rf /var/lib/apt/lists/* && \
     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
     docker-php-ext-install ldap
-# ldap  
+# ldap
 
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
@@ -80,7 +89,7 @@ ENV PHP_DATE_TIMEZONE="" \
     PHP_MAX_INPUT_VARS=1000 \
     PHP_MEMORY_LIMIT=128M \
     PHP_POST_MAX_SIZE=8M \
-    PHP_SENDMAIL_PATH="/usr/sbin/sendmail -t -i" \     
+    PHP_SENDMAIL_PATH="/usr/sbin/sendmail -t -i" \
     PHP_SESSION_SAVE_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
     PHP_UPLOAD_MAX_FILESIZE=2M \
@@ -98,3 +107,8 @@ WORKDIR /usr/src/app
 RUN apt-get update && apt-get install -y libmagickwand-dev \
     && pecl install imagick \
     && docker-php-ext-enable imagick
+
+# Install Postgre PDO
+RUN apt-get install -y libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo_pgsql pgsql
