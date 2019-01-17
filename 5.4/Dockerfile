@@ -26,7 +26,7 @@ RUN docker-php-ext-configure gd \
     --with-xpm-dir=/usr/include \
     --with-vpx-dir=/usr/include/ # php <7.0 (use webp for php >=7.0)
 
-RUN pecl install amqp
+RUN pecl install amqp-1.9.3
 RUN docker-php-ext-enable amqp
 
 RUN docker-php-ext-install gd
