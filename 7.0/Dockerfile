@@ -114,3 +114,6 @@ RUN apt-get update && apt-get install -y libmagickwand-dev \
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo_pgsql pgsql
+
+# Clean apt lists directory to avoid caching issues for further apt-get update calls
+RUN rm -rf /var/lib/apt/lists/*
