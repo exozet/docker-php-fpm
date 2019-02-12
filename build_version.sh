@@ -31,6 +31,8 @@ echo "Building exozet/php-fpm:${PHP_VERSION}"
 
 echo "FROM php:${PHP_VERSION}-fpm" >> version-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> version-Dockerfile
+echo '' >> version-Dockerfile
+echo 'RUN rm -rf /var/lib/apt/lists/*' >> version-Dockerfile
 
 docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile . >> ../build.log
 
@@ -39,6 +41,7 @@ rm -f version-Dockerfile
 echo "FROM php:${PHP_VERSION}-fpm" >> sudo-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> sudo-Dockerfile
 echo '' >> sudo-Dockerfile
+echo 'RUN rm -rf /var/lib/apt/lists/*' >> sudo-Dockerfile
 echo 'RUN apt-get install sudo' >> sudo-Dockerfile
 echo 'RUN chsh www-data -s /bin/bash' >> sudo-Dockerfile
 echo 'RUN echo "www-data ALL = NOPASSWD: ALL" > /etc/sudoers.d/www-data' >> sudo-Dockerfile
@@ -51,6 +54,7 @@ rm -f sudo-Dockerfile
 echo "FROM php:${PHP_VERSION}-fpm" >> root-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> root-Dockerfile
 echo '' >> root-Dockerfile
+echo 'RUN rm -rf /var/lib/apt/lists/*' >> root-Dockerfile
 echo 'USER root' >> root-Dockerfile
 
 echo "Building exozet/php-fpm:${PHP_VERSION}-root"
