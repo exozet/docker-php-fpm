@@ -114,3 +114,6 @@ RUN apt-get update && apt-get install -y libmagickwand-dev \
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo_pgsql pgsql
+
+RUN pecl install pcov-0.9.0
+RUN docker-php-ext-enable pcov
