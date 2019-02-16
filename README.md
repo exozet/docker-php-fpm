@@ -21,7 +21,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - pdo_mysql (5.0.11-dev)
   - pdo_pgsql
   - pgsql
-  - xdebug (2.4.0 for php <5.5, 2.5.5 for php <7.0, 2.6.1 for php 7.0, 7.1 & 7.2, 2.7.0beta1 for php 7.3)
+  - xdebug (2.4.0 for php <5.5, 2.5.5 for php <7.0, 2.6.1 for php 7.0, 7.1 & 7.2, 2.7.0RC2 for php 7.3)
   - opcache (for php >=5.5, since it's replacing apc since 5.5)
   - apc (for php <5.5, since it's replaced by opcache since 5.5)
   - pcntl
