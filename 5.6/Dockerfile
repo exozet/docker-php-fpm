@@ -47,7 +47,7 @@ RUN docker-php-ext-install calendar
 RUN docker-php-ext-install mcrypt
 RUN docker-php-ext-install sockets
 
-RUN pecl install redis \
+RUN pecl install redis-4.3.0 \
     && docker-php-ext-enable redis
 
 # ldap
