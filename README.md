@@ -30,7 +30,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - xsl
   - calendar
   - ldap
-  - redis
+  - redis (4.3.0)
   - ssh2 (0.13)
   - amqp (1.9.1)
   - sockets
