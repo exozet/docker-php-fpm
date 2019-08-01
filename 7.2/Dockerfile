@@ -64,7 +64,7 @@ RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug
 RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
-COPY --from=composer:1.8.4 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:1.8.6 /usr/bin/composer /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y git vim default-mysql-client rsync sshpass bzip2 msmtp unzip
 

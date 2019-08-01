@@ -34,7 +34,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - ssh2 (1.1.3)
   - amqp (1.9.3)
   - sockets
-- composer cli (1.8.4)
+- composer cli (1.8.6)
 - git cli (2.1.4)
 - vim (7.4)
 - mysql-client (mysql Ver 14.14 Distrib 5.5.58)
