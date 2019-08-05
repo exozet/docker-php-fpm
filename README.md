@@ -32,9 +32,9 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - ldap
   - redis
   - ssh2 (0.13)
-  - amqp (1.9.1)
+  - amqp (1.9.4)
   - sockets
-- composer cli (1.8.4)
+- composer cli (1.8.6)
 - git cli (2.1.4)
 - vim (7.4)
 - mysql-client (mysql Ver 14.14 Distrib 5.5.58)

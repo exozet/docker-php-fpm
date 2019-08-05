@@ -26,7 +26,7 @@ RUN docker-php-ext-configure gd \
     --with-xpm-dir=/usr/include \
     --with-vpx-dir=/usr/include/ # php <7.0 (use webp for php >=7.0)
 
-RUN pecl install amqp-1.9.1
+RUN pecl install amqp-1.9.4
 RUN docker-php-ext-enable amqp
 
 RUN docker-php-ext-install gd
@@ -66,7 +66,7 @@ RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug
 RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
-COPY --from=composer:1.8.4 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:1.8.6 /usr/bin/composer /usr/local/bin/composer
 
 RUN apt-get update && apt-get -y install git vim mysql-client rsync sshpass bzip2 msmtp unzip
 
