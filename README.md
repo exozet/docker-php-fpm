@@ -33,7 +33,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - ldap
   - redis
   - ssh2 (1.1.3)
-  - amqp (1.9.3)
+  - amqp (1.9.4)
   - sockets
 - composer cli (1.8.4)
 - git cli (2.1.4)
