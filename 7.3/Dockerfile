@@ -5,6 +5,7 @@ RUN pecl install memcached-3.1.2
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
 # gd extension
+# for php>=7.0 use libwebp, for php<7.0 use libvpx
 RUN apt-get update && apt-get install -y \
   libpng-dev \
   libfreetype6-dev \
@@ -14,7 +15,8 @@ RUN apt-get update && apt-get install -y \
   libxslt-dev \
   librabbitmq-dev \
   libssh-dev \
-  libwebp-dev  # php >=7.0 (use libvpx for php <7.0)
+  libwebp-dev && \
+  rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ \
@@ -25,11 +27,11 @@ RUN docker-php-ext-install gd
 RUN pecl install amqp-1.9.4
 RUN docker-php-ext-enable amqp
 
-RUN apt-get update && apt-get install -y libz-dev libzip-dev
+RUN apt-get update && apt-get install -y libz-dev libzip-dev && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install xsl
 
-RUN apt-get update && apt-get install -y libicu-dev
+RUN apt-get update && apt-get install -y libicu-dev && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install intl
 
 RUN docker-php-ext-install mysqli
@@ -60,7 +62,7 @@ RUN docker-php-ext-install soap
 ENV COMPOSER_HOME=/composer
 COPY --from=composer:1.8.6 /usr/bin/composer /usr/local/bin/composer
 
-RUN apt-get update && apt-get install -y git vim mysql-client rsync sshpass bzip2 msmtp unzip
+RUN apt-get update && apt-get install -y git vim default-mysql-client rsync sshpass bzip2 msmtp unzip && rm -rf /var/lib/apt/lists/*
 
 ADD php.ini /usr/local/etc/php/php.ini
 
@@ -69,7 +71,8 @@ RUN apt-get update && apt-get install -y cron \
     && mkfifo --mode 0666 /var/log/cron.log \
     && sed --regexp-extended --in-place \
     's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' \
-    /etc/pam.d/cron
+    /etc/pam.d/cron && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY start-cron /usr/sbin
 RUN chmod +x /usr/sbin/start-cron
@@ -99,11 +102,13 @@ WORKDIR /usr/src/app
 
 # imagick
 RUN apt-get update && apt-get install -y libmagickwand-dev \
+    && rm -rf /var/lib/apt/lists/* \
     && pecl install imagick \
     && docker-php-ext-enable imagick
 
 # Install Postgre PDO
-RUN apt-get install -y libpq-dev \
+RUN apt-get update && apt-get install -y libpq-dev \
+    && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo_pgsql pgsql
 
