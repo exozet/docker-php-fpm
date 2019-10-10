@@ -21,14 +21,12 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 RUN pecl install memcached-3.1.2 && docker-php-ext-enable memcached
-#RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 RUN docker-php-ext-configure gd \
   --with-freetype-dir=/usr/include/ \
   --with-jpeg-dir=/usr/include/ \
   --with-xpm-dir=/usr/include \
   --with-webp-dir=/usr/include/ && \
   docker-php-ext-install gd
-
 RUN pecl install amqp-1.9.4 && docker-php-ext-enable amqp
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install xsl
