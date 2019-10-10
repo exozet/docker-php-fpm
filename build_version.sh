@@ -39,7 +39,7 @@ rm -f version-Dockerfile
 echo "FROM php:${PHP_VERSION}-fpm" >> sudo-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> sudo-Dockerfile
 echo '' >> sudo-Dockerfile
-echo 'RUN apt-get install sudo' >> sudo-Dockerfile
+echo 'RUN apt-get update && apt-get install sudo && rm -rf /var/lib/apt/lists/*' >> sudo-Dockerfile
 echo 'RUN chsh www-data -s /bin/bash' >> sudo-Dockerfile
 echo 'RUN echo "www-data ALL = NOPASSWD: ALL" > /etc/sudoers.d/www-data' >> sudo-Dockerfile
 
