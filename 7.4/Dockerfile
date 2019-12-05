@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 RUN apt-get update && apt-get install -y libz-dev libmemcached-dev
 RUN pecl install memcached-3.1.2
@@ -52,7 +52,7 @@ RUN apt-get update && apt-get install libldap2-dev -y && \
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
-RUN pecl install xdebug-2.7.2
+RUN pecl install xdebug-2.8.1
 RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN docker-php-ext-install soap
@@ -107,5 +107,6 @@ RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo_pgsql pgsql
 
-RUN pecl install pcov-1.0.0
-RUN docker-php-ext-enable pcov
+# not working yet
+#RUN pecl install pcov-1.0.3
+#RUN docker-php-ext-enable pcov
