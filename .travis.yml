@@ -20,4 +20,4 @@ deploy:
   provider: script
   script: ./push_version.sh ${PHP_VERSION} ${PHP_VERSION_ALIAS}
   on:
-    branch: release/7.3
+    branch: release/7.4
