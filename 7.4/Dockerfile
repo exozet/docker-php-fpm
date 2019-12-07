@@ -108,6 +108,5 @@ RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo_pgsql pgsql
 
-# not working yet. build failed with the newest version
-#RUN pecl install pcov-1.0.3
-#RUN docker-php-ext-enable pcov
+RUN pecl install pcov-1.0.6
+RUN docker-php-ext-enable pcov
