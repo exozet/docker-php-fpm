@@ -16,10 +16,11 @@ RUN apt-get update && apt-get install -y \
   libssh-dev \
   libwebp-dev  # php >=7.0 (use libvpx for php <7.0)
 RUN docker-php-ext-configure gd \
-    --with-freetype-dir=/usr/include/ \
-    --with-jpeg-dir=/usr/include/ \
-    --with-xpm-dir=/usr/include \
-    --with-webp-dir=/usr/include/ # php >=7.0 (use libvpx for php <7.0)
+    --enable-gd \
+    --with-freetype \
+    --with-jpeg \
+    --with-xpm \
+    --with-webp
 RUN docker-php-ext-install gd
 
 RUN pecl install amqp-1.9.4
