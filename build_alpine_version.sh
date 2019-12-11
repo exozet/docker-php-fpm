@@ -31,14 +31,14 @@ docker pull "php:${PHP_VERSION}-fpm-alpine" >> ../build.log
 echo "Building exozet/php-fpm:${PHP_VERSION}-alpine"
 
 echo "FROM php:${PHP_VERSION}-fpm-alpine AS build-base" >> version-Dockerfile
-cat Dockerfile-alpine | grep -v '^FROM' >> version-Dockerfile
+cat Dockerfile-alpine | grep -v '^FROM php:' >> version-Dockerfile
 
 docker build -t exozet/php-fpm:${PHP_VERSION}-alpine -f version-Dockerfile . >> ../build.log
 
 rm -f version-Dockerfile
 
 echo "FROM php:${PHP_VERSION}-fpm-alpine AS build-base" >> sudo-Dockerfile
-cat Dockerfile-alpine | grep -v '^FROM' >> sudo-Dockerfile
+cat Dockerfile-alpine | grep -v '^FROM php:' >> sudo-Dockerfile
 echo '' >> sudo-Dockerfile
 echo 'RUN apk add --no-cache sudo' >> sudo-Dockerfile
 echo "RUN sed -i 's/\/home\/www-data:\/sbin\/nologin/\/home\/www-data:\/bin\/bash/' /etc/passwd" >> sudo-Dockerfile
@@ -60,7 +60,7 @@ rm -f sudo-Dockerfile
 rm -f xdebug-Dockerfile
 
 echo "FROM php:${PHP_VERSION}-fpm-alpine AS build-base" >> root-Dockerfile
-cat Dockerfile-alpine | grep -v '^FROM' >> root-Dockerfile
+cat Dockerfile-alpine | grep -v '^FROM php:' >> root-Dockerfile
 echo '' >> root-Dockerfile
 echo 'USER root' >> root-Dockerfile
 
