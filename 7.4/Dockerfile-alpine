@@ -1,4 +1,6 @@
-FROM php:7.4.0-fpm-alpine AS build-base
+FROM php:7.4.0-fpm-alpine AS base
+
+FROM base AS build-base
 RUN apk add --no-cache --virtual .phpize-base-deps-configure $PHPIZE_DEPS
 
 FROM build-base AS build-gd
@@ -112,7 +114,7 @@ RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
-FROM php:7.4.0-fpm-alpine
+FROM base
 
 ENV COMPOSER_HOME=/composer
 COPY --from=composer:1.8.6 /usr/bin/composer /usr/local/bin/composer
