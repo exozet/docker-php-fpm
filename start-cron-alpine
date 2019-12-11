@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# make link to custom location of /etc/cron.d if provided
+if [ "${CRON_PATH}" ]; then
+    echo "CRON_PATH provided, creating link: /etc/cron.d -> ${CRON_PATH}"
+    ln -s "${CRON_PATH}"/* /etc/cron.d/
+fi
+
+CRONTAB_USER_OPTIONS=""
+
+if [ "${CRONTAB_USER}" ]; then
+	CRONTAB_USER_OPTIONS="-u ${CRONTAB_USER}"
+fi
+
+# adding additional cron jobs passed by arguments
+# every job must be a single quoted string and have standard crontab format,
+# e.g.: start-cron --user user "0 \* \* \* \* env >> /var/log/cron.log 2>&1"
+{ for cron_job in "$@"; do echo -e ${cron_job}; done } \
+    | sed --regexp-extended 's/\\(.)/\1/g' \
+    | crontab ${CRONTAB_USER_OPTIONS} -
+
+if [ "${CRONTAB_CONTENT}" ]; then
+    echo "CRONTAB_CONTENT provided, setting up crontab"
+    echo "PATH=$PATH
+$CRONTAB_CONTENT" | crontab ${CRONTAB_USER_OPTIONS} -
+fi
+
+# start cron
+/usr/sbin/crond -b -d 8
+
+# trap SIGINT and SIGTERM signals and gracefully exit
+trap "service cron stop; kill \$!; exit" SIGINT SIGTERM
+
+# start "daemon"
+while true
+do
+    # watch /var/log/cron.log restarting if necessary
+    cat /var/log/cron.log & wait $!
+done
