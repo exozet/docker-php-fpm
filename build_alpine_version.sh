@@ -47,13 +47,8 @@ echo 'RUN echo "www-data ALL = NOPASSWD: ALL" > /etc/sudoers.d/www-data' >> sudo
 echo "Building exozet/php-fpm:${PHP_VERSION}-sudo-alpine"
 docker build -t exozet/php-fpm:${PHP_VERSION}-sudo-alpine -f sudo-Dockerfile . >> ../build.log
 
-
-echo "FROM php:${PHP_VERSION}-fpm-alpine AS build-base" >> sudo-Dockerfile
 cp sudo-Dockerfile xdebug-Dockerfile
 echo '' >> xdebug-Dockerfile
-
-
-RUN
 
 echo 'COPY --from=build-xdebug /tmp/xdebug.so /tmp/xdebug.so' >> xdebug-Dockerfile
 echo "RUN mv /tmp/xdebug.so \`php -i | grep ^extension_dir | cut -f 3 -d ' '\`/ && docker-php-ext-enable xdebug" >> xdebug-Dockerfile
