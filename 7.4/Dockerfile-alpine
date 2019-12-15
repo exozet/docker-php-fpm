@@ -18,7 +18,7 @@ RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-amqp
 RUN apk add --no-cache rabbitmq-c-dev
-RUN pecl install amqp
+RUN pecl install amqp-1.9.4
 RUN docker-php-ext-enable amqp
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
@@ -62,7 +62,7 @@ RUN docker-php-ext-install sockets
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-redis
-RUN pecl install redis
+RUN pecl install redis-5.1.1
 RUN docker-php-ext-enable redis
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
@@ -83,13 +83,13 @@ RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-memcached
 RUN apk add --no-cache  zlib-dev libmemcached-dev
-RUN pecl install memcached
+RUN pecl install memcached-3.1.5
 RUN docker-php-ext-enable memcached
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-imagick
 RUN apk add --no-cache imagemagick-dev
-RUN pecl install imagick
+RUN pecl install imagick-3.4.4
 RUN docker-php-ext-enable imagick
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
@@ -105,12 +105,12 @@ RUN docker-php-ext-install pdo_pgsql
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-pcov
-RUN pecl install pcov
+RUN pecl install pcov-1.0.6
 RUN docker-php-ext-enable pcov
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-xdebug
-RUN pecl install xdebug
+RUN pecl install xdebug-2.9.0
 RUN docker-php-ext-enable xdebug
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 

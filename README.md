@@ -3,7 +3,7 @@
 This is a docker php fpm image, based on the official php fpm image. It has the following additions:
 
 - extensions
-  - memcached (3.1.2)
+  - memcached (3.1.5)
   - gd (2.1.0)
     - png (1.2.50)
     - jpeg (6b)
@@ -14,7 +14,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
     - xpm
     - xbm
   - zip (1.11.0, lib: 0.10.1)
-  - imagick
+  - imagick (3.4.4)
   - intl (1.1.0, icu: 52.1)
   - mysqli (5.0.11-dev)
   - pdo_mysql (5.0.11-dev)
@@ -30,7 +30,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - xsl
   - calendar
   - ldap
-  - redis
+  - redis (5.1.1)
   - amqp (1.9.4)
   - sockets
 - composer cli (1.8.6)
