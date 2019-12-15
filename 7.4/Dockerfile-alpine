@@ -1,0 +1,253 @@
+FROM php:7.4.0-fpm-alpine AS base
+
+FROM base AS build-base
+RUN apk add --no-cache --virtual .phpize-base-deps-configure $PHPIZE_DEPS
+
+FROM build-base AS build-gd
+RUN apk add --no-cache libpng-dev libwebp-dev jpeg-dev libxpm-dev freetype-dev
+RUN apk add --no-cache libpng libwebp jpeg libxpm freetype
+RUN docker-php-ext-configure gd \
+    --enable-gd \
+    --with-freetype \
+    --with-freetype \
+    --with-jpeg \
+    --with-xpm \
+    --with-webp
+RUN docker-php-ext-install gd
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-amqp
+RUN apk add --no-cache rabbitmq-c-dev
+RUN pecl install amqp-1.9.4
+RUN docker-php-ext-enable amqp
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-zip
+RUN apk add --no-cache libzip-dev
+RUN docker-php-ext-install zip
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-xsl
+RUN apk add --no-cache libxslt-dev libxml2-dev  libgcrypt-dev
+RUN docker-php-ext-install xsl
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-intl
+RUN apk add --no-cache icu-dev
+RUN docker-php-ext-install intl
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-mysqli
+RUN docker-php-ext-install mysqli
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-pdo_mysql
+RUN docker-php-ext-install pdo_mysql
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-opcache
+RUN docker-php-ext-install opcache
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-bcmath
+RUN docker-php-ext-install bcmath
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-calendar
+RUN docker-php-ext-install calendar
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-sockets
+RUN docker-php-ext-install sockets
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-redis
+RUN pecl install redis-5.1.1
+RUN docker-php-ext-enable redis
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-ldap
+RUN apk add --no-cache openldap-dev
+RUN docker-php-ext-install ldap
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-pcntl
+RUN docker-php-ext-configure pcntl --enable-pcntl
+RUN docker-php-ext-install pcntl
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-soap
+RUN apk add --no-cache libxml2-dev
+RUN docker-php-ext-install soap
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-memcached
+RUN apk add --no-cache  zlib-dev libmemcached-dev
+RUN pecl install memcached-3.1.5
+RUN docker-php-ext-enable memcached
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-imagick
+RUN apk add --no-cache imagemagick-dev
+RUN pecl install imagick-3.4.4
+RUN docker-php-ext-enable imagick
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-pgsql
+RUN apk add --no-cache postgresql-dev
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+RUN docker-php-ext-install pgsql
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-pdo_pgsql
+RUN apk add --no-cache postgresql-dev
+RUN docker-php-ext-install pdo_pgsql
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-pcov
+RUN pecl install pcov-1.0.6
+RUN docker-php-ext-enable pcov
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-xdebug
+RUN pecl install xdebug-2.9.0
+RUN docker-php-ext-enable xdebug
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM base
+
+ENV COMPOSER_HOME=/composer
+COPY --from=composer:1.8.6 /usr/bin/composer /usr/local/bin/composer
+
+RUN apk add --no-cache \
+    git \
+    mysql-client \
+    vim \
+    rsync \
+    sshpass \
+    bzip2 \
+    msmtp \
+    unzip
+
+COPY --from=build-gd /tmp/gd.so /tmp/gd.so
+RUN mv /tmp/gd.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache libpng libwebp jpeg libxpm freetype \
+    && docker-php-ext-enable gd
+
+COPY --from=build-amqp /tmp/amqp.so /tmp/amqp.so
+RUN mv /tmp/amqp.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache rabbitmq-c \
+    && docker-php-ext-enable amqp
+
+COPY --from=build-zip /tmp/zip.so /tmp/zip.so
+RUN mv /tmp/zip.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache libzip \
+    && docker-php-ext-enable zip
+
+COPY --from=build-xsl /tmp/xsl.so /tmp/xsl.so
+RUN mv /tmp/xsl.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache libxslt libxml2 libgcrypt \
+    && docker-php-ext-enable xsl
+
+
+COPY --from=build-intl /tmp/intl.so /tmp/intl.so
+RUN mv /tmp/intl.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache icu-libs \
+    && docker-php-ext-enable intl
+
+COPY --from=build-mysqli /tmp/mysqli.so /tmp/mysqli.so
+RUN mv /tmp/mysqli.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && docker-php-ext-enable mysqli
+
+COPY --from=build-pdo_mysql /tmp/pdo_mysql.so /tmp/pdo_mysql.so
+RUN mv /tmp/pdo_mysql.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && docker-php-ext-enable pdo_mysql
+
+COPY --from=build-opcache /tmp/opcache.so /tmp/opcache.so
+RUN mv /tmp/opcache.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && docker-php-ext-enable opcache
+
+COPY --from=build-bcmath /tmp/bcmath.so /tmp/bcmath.so
+RUN mv /tmp/bcmath.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && docker-php-ext-enable bcmath
+
+COPY --from=build-calendar /tmp/calendar.so /tmp/calendar.so
+RUN mv /tmp/calendar.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && docker-php-ext-enable calendar
+
+COPY --from=build-sockets /tmp/sockets.so /tmp/sockets.so
+RUN mv /tmp/sockets.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && docker-php-ext-enable sockets
+
+COPY --from=build-redis /tmp/redis.so /tmp/redis.so
+RUN mv /tmp/redis.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && docker-php-ext-enable redis
+
+COPY --from=build-ldap /tmp/ldap.so /tmp/ldap.so
+RUN mv /tmp/ldap.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache libldap \
+    && docker-php-ext-enable ldap
+
+COPY --from=build-pcntl /tmp/pcntl.so /tmp/pcntl.so
+RUN mv /tmp/pcntl.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && docker-php-ext-enable pcntl
+
+COPY --from=build-soap /tmp/soap.so /tmp/soap.so
+RUN mv /tmp/soap.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache libxml2 \
+    && docker-php-ext-enable soap
+
+COPY --from=build-memcached /tmp/memcached.so /tmp/memcached.so
+RUN mv /tmp/memcached.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache libmemcached-libs zlib \
+    && docker-php-ext-enable memcached
+
+COPY --from=build-imagick /tmp/imagick.so /tmp/imagick.so
+RUN mv /tmp/imagick.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache imagemagick \
+    && docker-php-ext-enable imagick
+
+COPY --from=build-pgsql /tmp/pgsql.so /tmp/pgsql.so
+RUN mv /tmp/pgsql.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache libpq postgresql-libs \
+    && docker-php-ext-enable pgsql
+
+COPY --from=build-pdo_pgsql /tmp/pdo_pgsql.so /tmp/pdo_pgsql.so
+RUN mv /tmp/pdo_pgsql.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && apk add --no-cache libpq postgresql-libs \
+    && docker-php-ext-enable pdo_pgsql
+
+COPY --from=build-pcov /tmp/pcov.so /tmp/pcov.so
+RUN mv /tmp/pcov.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
+    && docker-php-ext-enable pcov
+
+# Cron
+RUN apk add --no-cache sed bash
+RUN mkfifo -m 0666 /var/log/cron.log
+COPY start-cron-alpine /usr/sbin/start-cron
+RUN chmod +x /usr/sbin/start-cron
+# Cron
+
+ADD php.ini /usr/local/etc/php/php.ini
+
+ENV PHP_DATE_TIMEZONE="" \
+    PHP_LOG_ERRORS_MAX_LEN=1024 \
+    PHP_LOG_ERRORS="1" \
+    PHP_MAX_EXECUTION_TIME=0 \
+    PHP_MAX_FILE_UPLOADS=20 \
+    PHP_MAX_INPUT_VARS=1000 \
+    PHP_MEMORY_LIMIT=128M \
+    PHP_POST_MAX_SIZE=8M \
+    PHP_SENDMAIL_PATH="/usr/sbin/sendmail -t -i" \
+    PHP_SESSION_SAVE_HANDLER=files \
+    PHP_SESSION_SAVE_PATH="" \
+    PHP_UPLOAD_MAX_FILESIZE=2M \
+    PHP_XDEBUG_DEFAULT_ENABLE=0 \
+    PHP_XDEBUG_IDEKEY=''\
+    PHP_XDEBUG_PROFILER_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_AUTOSTART=0 \
+    PHP_XDEBUG_REMOTE_CONNECT_BACK=0 \
+    PHP_XDEBUG_REMOTE_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_HOST=0
+
+WORKDIR /usr/src/app

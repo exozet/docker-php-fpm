@@ -12,12 +12,20 @@ then
   exit 1;
 fi
 
+TAG_SUFFIXES="alpine sudo sudo-alpine root root-alpine xdebug-alpine"
+
 echo "Pushing exozet/php-fpm:${PHP_VERSION}"
 docker push exozet/php-fpm:${PHP_VERSION}
-echo "Pushing exozet/php-fpm:${PHP_VERSION}-sudo"
-docker push exozet/php-fpm:${PHP_VERSION}-sudo
-echo "Pushing exozet/php-fpm:${PHP_VERSION}-root"
-docker push exozet/php-fpm:${PHP_VERSION}-root
+docker tag exozet/php-fpm:${PHP_VERSION} quay.io/exozet/php-fpm:${PHP_VERSION}
+docker push quay.io/exozet/php-fpm:${PHP_VERSION}
+
+for TAG_SUFFIX in $TAG_SUFFIXES
+do
+  echo "Pushing exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX}"
+  docker push exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX}
+  docker tag exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX} quay.io/exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX}
+  docker push quay.io/exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX}
+done
 
 if [ "$PHP_VERSION_ALIAS" ]
 then
@@ -28,13 +36,13 @@ then
   echo "Pushing exozet/php-fpm:${PHP_VERSION_ALIAS}"
   docker push exozet/php-fpm:${PHP_VERSION_ALIAS}
 
-  echo "Tagging exozet/php-fpm:${PHP_VERSION_ALIAS}-sudo based on exozet/php-fpm:${PHP_VERSION}-sudo"
-  docker tag exozet/php-fpm:${PHP_VERSION}-sudo exozet/php-fpm:${PHP_VERSION_ALIAS}-sudo
-  echo "Pushing exozet/php-fpm:${PHP_VERSION_ALIAS}-sudo"
-  docker push exozet/php-fpm:${PHP_VERSION_ALIAS}-sudo
-
-  echo "Tagging exozet/php-fpm:${PHP_VERSION_ALIAS}-root based on exozet/php-fpm:${PHP_VERSION}-root"
-  docker tag exozet/php-fpm:${PHP_VERSION}-root exozet/php-fpm:${PHP_VERSION_ALIAS}-root
-  echo "Pushing exozet/php-fpm:${PHP_VERSION_ALIAS}-root"
-  docker push exozet/php-fpm:${PHP_VERSION_ALIAS}-root
+  for TAG_SUFFIX in $TAG_SUFFIXES
+  do
+    echo "Tagging exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX} based on exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX}"
+    docker tag exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX} exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}
+    docker tag exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX} quay.io/exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}
+    echo "Pushing exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}"
+    docker push exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}
+    docker push quay.io/exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}
+  done
 fi

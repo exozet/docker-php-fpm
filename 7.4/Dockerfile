@@ -2,7 +2,7 @@ FROM php:7.4-fpm
 
 RUN apt-get update && apt-get install --no-install-recommends -y libz-dev libmemcached-dev \
     && rm -rf /var/lib/apt/lists/*
-RUN pecl install memcached-3.1.2
+RUN pecl install memcached-3.1.5
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
 # gd extension
@@ -45,7 +45,7 @@ RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install calendar
 RUN docker-php-ext-install sockets
 
-RUN pecl install redis \
+RUN pecl install redis-5.1.1 \
     && docker-php-ext-enable redis
 
 # ldap
@@ -109,7 +109,7 @@ WORKDIR /usr/src/app
 # imagick
 RUN apt-get update && apt-get install --no-install-recommends -y libmagickwand-dev \
     && rm -rf /var/lib/apt/lists/* \
-    && pecl install imagick \
+    && pecl install imagick-3.4.4 \
     && docker-php-ext-enable imagick
 
 # Install Postgres PDO

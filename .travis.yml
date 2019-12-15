@@ -6,7 +6,10 @@ services:
   - docker
 
 script:
+  - ./build_alpine_version.sh $PHP_VERSION
   - ./build_version.sh $PHP_VERSION
+  - docker run --rm -it exozet/php-fpm:${PHP_VERSION}-alpine php -i
+  - docker run --rm -it exozet/php-fpm:${PHP_VERSION}-alpine php -v
   - docker run --rm -it exozet/php-fpm:${PHP_VERSION} php -i
   - docker run --rm -it exozet/php-fpm:${PHP_VERSION} php -v
 
@@ -15,6 +18,7 @@ env:
 
 before_deploy:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker login quay.io -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD"
 
 deploy:
   provider: script
