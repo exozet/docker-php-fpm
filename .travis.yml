@@ -18,6 +18,7 @@ env:
 
 before_deploy:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker login quay.io -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD"
 
 deploy:
   provider: script
