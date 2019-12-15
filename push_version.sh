@@ -40,7 +40,9 @@ then
   do
     echo "Tagging exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX} based on exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX}"
     docker tag exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX} exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}
+    docker tag exozet/php-fpm:${PHP_VERSION}-${TAG_SUFFIX} quay.io/exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}
     echo "Pushing exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}"
     docker push exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}
+    docker push quay.io/exozet/php-fpm:${PHP_VERSION_ALIAS}-${TAG_SUFFIX}
   done
 fi
