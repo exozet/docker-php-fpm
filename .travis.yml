@@ -11,9 +11,7 @@ script:
   - docker run --rm -it exozet/php-fpm:${PHP_VERSION} php -v
 
 env:
-  - PHP_VERSION=7.1.31 PHP_VERSION_ALIAS=7.1
-  - PHP_VERSION=7.1.30
-  - PHP_VERSION=7.1.29
+  - PHP_VERSION=7.1.30 PHP_VERSION_ALIAS=7.1
   - PHP_VERSION=7.1.29
   - PHP_VERSION=7.1.28
   - PHP_VERSION=7.1.27
