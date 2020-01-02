@@ -19,6 +19,13 @@ then
   exit 1;
 fi
 
+MYSQL_CLIENT_PACKAGE=default-mysql-client
+
+if [ "$DEBIAN_DISTRO" == "jessie" ]
+then
+  MYSQL_CLIENT_PACKAGE=mysql-client
+fi
+
 FOLDER=`echo $PHP_VERSION | cut -f 1,2 -d '.'`
 
 if [ ! -d $FOLDER ]
@@ -38,14 +45,14 @@ docker pull "php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> ../build.log
 echo "Building exozet/php-fpm:${PHP_VERSION}"
 
 echo "FROM php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> version-Dockerfile
-cat Dockerfile | grep -v '^FROM' >> version-Dockerfile
+cat Dockerfile | sed "s/mysql-client/$MYSQL_CLIENT_PACKAGE/g" | grep -v '^FROM' >> version-Dockerfile
 
 docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile . >> ../build.log
 
 rm -f version-Dockerfile
 
 echo "FROM php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> sudo-Dockerfile
-cat Dockerfile | grep -v '^FROM' >> sudo-Dockerfile
+cat Dockerfile | sed "s/mysql-client/$MYSQL_CLIENT_PACKAGE/g" | grep -v '^FROM' >> sudo-Dockerfile
 echo '' >> sudo-Dockerfile
 echo 'RUN apt-get install sudo' >> sudo-Dockerfile
 echo 'RUN chsh www-data -s /bin/bash' >> sudo-Dockerfile
@@ -57,7 +64,7 @@ docker build -t exozet/php-fpm:${PHP_VERSION}-sudo -f sudo-Dockerfile . >> ../bu
 rm -f sudo-Dockerfile
 
 echo "FROM php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> root-Dockerfile
-cat Dockerfile | grep -v '^FROM' >> root-Dockerfile
+cat Dockerfile | sed "s/mysql-client/$MYSQL_CLIENT_PACKAGE/g" | grep -v '^FROM' >> root-Dockerfile
 echo '' >> root-Dockerfile
 echo 'USER root' >> root-Dockerfile
 
