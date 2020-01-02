@@ -3,11 +3,19 @@
 set -e
 
 PHP_VERSION=$1
+DEBIAN_DISTRO=$2
 
 if [ -z "$PHP_VERSION" ]
 then
   echo "Error: Missing version name!" >&2
   echo "Correct Usage $0 PHP_VERSION (e.g. $0 7.0.16)" >&2
+  exit 1;
+fi
+
+if [ -z "$DEBIAN_DISTRO" ]
+then
+  echo "Error: Missing distro name!" >&2
+  echo "Correct Usage $0 PHP_VERSION DEBIAN_DISTRO (e.g. $0 7.0.16 jessie)" >&2
   exit 1;
 fi
 
@@ -29,14 +37,14 @@ docker pull "php:${PHP_VERSION}-fpm" >> ../build.log
 
 echo "Building exozet/php-fpm:${PHP_VERSION}"
 
-echo "FROM php:${PHP_VERSION}-fpm" >> version-Dockerfile
+echo "FROM php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> version-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> version-Dockerfile
 
 docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile . >> ../build.log
 
 rm -f version-Dockerfile
 
-echo "FROM php:${PHP_VERSION}-fpm" >> sudo-Dockerfile
+echo "FROM php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> sudo-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> sudo-Dockerfile
 echo '' >> sudo-Dockerfile
 echo 'RUN apt-get install sudo' >> sudo-Dockerfile
@@ -48,7 +56,7 @@ docker build -t exozet/php-fpm:${PHP_VERSION}-sudo -f sudo-Dockerfile . >> ../bu
 
 rm -f sudo-Dockerfile
 
-echo "FROM php:${PHP_VERSION}-fpm" >> root-Dockerfile
+echo "FROM php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> root-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> root-Dockerfile
 echo '' >> root-Dockerfile
 echo 'USER root' >> root-Dockerfile
