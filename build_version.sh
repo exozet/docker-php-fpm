@@ -32,8 +32,8 @@ cd $FOLDER
 cp ../php.ini php.ini
 cp ../start-cron start-cron
 
-echo "Pull latest php:${PHP_VERSION}-fpm"
-docker pull "php:${PHP_VERSION}-fpm" >> ../build.log
+echo "Pull latest php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}"
+docker pull "php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> ../build.log
 
 echo "Building exozet/php-fpm:${PHP_VERSION}"
 
