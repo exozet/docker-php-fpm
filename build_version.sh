@@ -24,19 +24,19 @@ cd $FOLDER
 cp ../php.ini php.ini
 cp ../start-cron start-cron
 
-echo "Pull latest php:${PHP_VERSION}-fpm"
-docker pull "php:${PHP_VERSION}-fpm" >> ../build.log
+echo "Pull latest php:${PHP_VERSION}-fpm-jessie"
+docker pull "php:${PHP_VERSION}-fpm-jessie" >> ../build.log
 
 echo "Building exozet/php-fpm:${PHP_VERSION}"
 
-echo "FROM php:${PHP_VERSION}-fpm" >> version-Dockerfile
+echo "FROM php:${PHP_VERSION}-fpm-jessie" >> version-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> version-Dockerfile
 
 docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile . >> ../build.log
 
 rm -f version-Dockerfile
 
-echo "FROM php:${PHP_VERSION}-fpm" >> sudo-Dockerfile
+echo "FROM php:${PHP_VERSION}-fpm-jessie" >> sudo-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> sudo-Dockerfile
 echo '' >> sudo-Dockerfile
 echo 'RUN apt-get install sudo' >> sudo-Dockerfile
@@ -48,7 +48,7 @@ docker build -t exozet/php-fpm:${PHP_VERSION}-sudo -f sudo-Dockerfile . >> ../bu
 
 rm -f sudo-Dockerfile
 
-echo "FROM php:${PHP_VERSION}-fpm" >> root-Dockerfile
+echo "FROM php:${PHP_VERSION}-fpm-jessie" >> root-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> root-Dockerfile
 echo '' >> root-Dockerfile
 echo 'USER root' >> root-Dockerfile
