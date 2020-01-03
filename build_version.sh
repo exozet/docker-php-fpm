@@ -26,6 +26,13 @@ then
   MYSQL_CLIENT_PACKAGE=mysql-client
 fi
 
+FROM_IMAGE_SUFFIX="-fpm-${DEBIAN_DISTRO}"
+
+if [ "$DISTRO_SUFFIX" == "no" ]
+then
+  FROM_IMAGE_SUFFIX="-fpm"
+fi
+
 FOLDER=`echo $PHP_VERSION | cut -f 1,2 -d '.'`
 
 if [ ! -d $FOLDER ]
@@ -39,19 +46,19 @@ cd $FOLDER
 cp ../php.ini php.ini
 cp ../start-cron start-cron
 
-echo "Pull latest php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}"
-docker pull "php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> ../build.log
+echo "Pull latest php:${PHP_VERSION}${FROM_IMAGE_SUFFIX}"
+docker pull "php:${PHP_VERSION}${FROM_IMAGE_SUFFIX}" >> ../build.log
 
 echo "Building exozet/php-fpm:${PHP_VERSION}"
 
-echo "FROM php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> version-Dockerfile
+echo "FROM php:${PHP_VERSION}${FROM_IMAGE_SUFFIX}" >> version-Dockerfile
 cat Dockerfile | sed "s/mysql-client/$MYSQL_CLIENT_PACKAGE/g" | grep -v '^FROM' >> version-Dockerfile
 
 docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile . >> ../build.log
 
 rm -f version-Dockerfile
 
-echo "FROM php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> sudo-Dockerfile
+echo "FROM php:${PHP_VERSION}${FROM_IMAGE_SUFFIX}" >> sudo-Dockerfile
 cat Dockerfile | sed "s/mysql-client/$MYSQL_CLIENT_PACKAGE/g" | grep -v '^FROM' >> sudo-Dockerfile
 echo '' >> sudo-Dockerfile
 echo 'RUN apt-get install sudo' >> sudo-Dockerfile
@@ -63,7 +70,7 @@ docker build -t exozet/php-fpm:${PHP_VERSION}-sudo -f sudo-Dockerfile . >> ../bu
 
 rm -f sudo-Dockerfile
 
-echo "FROM php:${PHP_VERSION}-fpm-${DEBIAN_DISTRO}" >> root-Dockerfile
+echo "FROM php:${PHP_VERSION}${FROM_IMAGE_SUFFIX}" >> root-Dockerfile
 cat Dockerfile | sed "s/mysql-client/$MYSQL_CLIENT_PACKAGE/g" | grep -v '^FROM' >> root-Dockerfile
 echo '' >> root-Dockerfile
 echo 'USER root' >> root-Dockerfile
