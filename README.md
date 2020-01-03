@@ -21,7 +21,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - pdo_mysql (5.0.11-dev)
   - pdo_pgsql
   - pgsql
-  - xdebug (2.6.1)
+  - xdebug (2.9.0)
   - pcov (1.0.0)
   - opcache
   - pcntl
@@ -35,7 +35,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - ssh2 (1.1.3)
   - amqp (1.9.4)
   - sockets
-- composer cli (1.8.4)
+- composer cli (1.8.6)
 - git cli (2.1.4)
 - vim (7.4)
 - mysql-client (mysql Ver 14.14 Distrib 5.5.58)
