@@ -28,7 +28,7 @@ fi
 
 FROM_IMAGE_SUFFIX="-fpm-${DEBIAN_DISTRO}"
 
-if [ "$DISTRO_SUFFIX" == "no"]
+if [ "$DISTRO_SUFFIX" == "no" ]
 then
   FROM_IMAGE_SUFFIX="-fpm"
 fi
