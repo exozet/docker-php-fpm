@@ -127,7 +127,8 @@ RUN apk add --no-cache \
     sshpass \
     bzip2 \
     msmtp \
-    unzip
+    unzip \
+    make
 
 COPY --from=build-gd /tmp/gd.so /tmp/gd.so
 RUN mv /tmp/gd.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
