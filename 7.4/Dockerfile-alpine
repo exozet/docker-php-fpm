@@ -128,7 +128,11 @@ RUN apk add --no-cache \
     bzip2 \
     msmtp \
     unzip \
-    make
+    make \
+    gnu-libiconv
+
+# see https://github.com/docker-library/php/issues/240
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 COPY --from=build-gd /tmp/gd.so /tmp/gd.so
 RUN mv /tmp/gd.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
