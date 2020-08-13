@@ -6,6 +6,7 @@ services:
   - docker
 
 script:
+  - "travis_wait 30 sleep 1800 &"
   - ./build_alpine_version.sh $PHP_VERSION
   - ./build_version.sh $PHP_VERSION
   - docker run --rm -it exozet/php-fpm:${PHP_VERSION}-alpine php -i
