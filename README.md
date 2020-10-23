@@ -6,35 +6,35 @@ This is a docker php fpm image, based on the official php fpm image.
 
 | Version | Branch | Status |
 | --- | --- | --- |
-| **7.4** | [release/7.4](https://github.com/exozet/docker-php-fpm/tree/release/7.4) | [![Build Status][travis_74_badge]][travis_74_link] |
-| **7.3** | [release/7.3](https://github.com/exozet/docker-php-fpm/tree/release/7.3) | [![Build Status][travis_73_badge]][travis_73_link] |
-| **7.2** | [release/7.2](https://github.com/exozet/docker-php-fpm/tree/release/7.2) | [![Build Status][travis_72_badge]][travis_72_link] |
-| **7.1** | [release/7.1](https://github.com/exozet/docker-php-fpm/tree/release/7.1) | [![Build Status][travis_71_badge]][travis_71_link] |
-| **7.0** | [release/7.0](https://github.com/exozet/docker-php-fpm/tree/release/7.0) | [![Build Status][travis_70_badge]][travis_70_link] |
-| **5.6** | [release/5.6](https://github.com/exozet/docker-php-fpm/tree/release/5.6) | [![Build Status][travis_56_badge]][travis_56_link] |
-| **5.5** | [release/5.5](https://github.com/exozet/docker-php-fpm/tree/release/5.5) | [![Build Status][travis_55_badge]][travis_55_link] |
-| **5.4** | [release/5.4](https://github.com/exozet/docker-php-fpm/tree/release/5.4) | [![Build Status][travis_54_badge]][travis_54_link] |
+| **7.4** | [release/7.4](https://github.com/exozet/docker-php-fpm/tree/release/7.4) | [![Build Status][github_actions_74_badge]][github_actions_74_link] |
+| **7.3** | [release/7.3](https://github.com/exozet/docker-php-fpm/tree/release/7.3) | [![Build Status][github_actions_73_badge]][github_actions_73_link] |
+| **7.2** | [release/7.2](https://github.com/exozet/docker-php-fpm/tree/release/7.2) | [![Build Status][github_actions_72_badge]][github_actions_72_link] |
+| **7.1** | [release/7.1](https://github.com/exozet/docker-php-fpm/tree/release/7.1) | [![Build Status][github_actions_71_badge]][github_actions_71_link] |
+| **7.0** | [release/7.0](https://github.com/exozet/docker-php-fpm/tree/release/7.0) | [![Build Status][github_actions_70_badge]][github_actions_70_link] |
+| **5.6** | [release/5.6](https://github.com/exozet/docker-php-fpm/tree/release/5.6) | [![Build Status][github_actions_56_badge]][github_actions_56_link] |
+| **5.5** | [release/5.5](https://github.com/exozet/docker-php-fpm/tree/release/5.5) | [![Build Status][github_actions_55_badge]][github_actions_55_link] |
+| **5.4** | [release/5.4](https://github.com/exozet/docker-php-fpm/tree/release/5.4) | [![Build Status][github_actions_54_badge]][github_actions_54_link] |
 
-[travis_74_badge]: https://travis-ci.org/exozet/docker-php-fpm.svg?branch=release/7.4
-[travis_74_link]: https://travis-ci.org/exozet/docker-php-fpm
+[github_actions_74_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/7.4
+[github_actions_74_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F7.4
 
-[travis_73_badge]: https://travis-ci.org/exozet/docker-php-fpm.svg?branch=release/7.3
-[travis_73_link]: https://travis-ci.org/exozet/docker-php-fpm
+[github_actions_73_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/7.3
+[github_actions_73_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F7.3
 
-[travis_72_badge]: https://travis-ci.org/exozet/docker-php-fpm.svg?branch=release/7.2
-[travis_72_link]: https://travis-ci.org/exozet/docker-php-fpm
+[github_actions_72_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/7.2
+[github_actions_72_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F7.2
 
-[travis_71_badge]: https://travis-ci.org/exozet/docker-php-fpm.svg?branch=release/7.1
-[travis_71_link]: https://travis-ci.org/exozet/docker-php-fpm
+[github_actions_71_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/7.1
+[github_actions_71_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F7.1
 
-[travis_70_badge]: https://travis-ci.org/exozet/docker-php-fpm.svg?branch=release/7.0
-[travis_70_link]: https://travis-ci.org/exozet/docker-php-fpm
+[github_actions_70_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/7.0
+[github_actions_70_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F7.0
 
-[travis_56_badge]: https://travis-ci.org/exozet/docker-php-fpm.svg?branch=release/5.6
-[travis_56_link]: https://travis-ci.org/exozet/docker-php-fpm
+[github_actions_56_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/5.6
+[github_actions_56_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F5.6
 
-[travis_55_badge]: https://travis-ci.org/exozet/docker-php-fpm.svg?branch=release/5.5
-[travis_55_link]: https://travis-ci.org/exozet/docker-php-fpm
+[github_actions_55_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/5.5
+[github_actions_55_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F5.5
 
-[travis_54_badge]: https://travis-ci.org/exozet/docker-php-fpm.svg?branch=release/5.4
-[travis_54_link]: https://travis-ci.org/exozet/docker-php-fpm
+[github_actions_54_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/5.4
+[github_actions_54_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F5.4
