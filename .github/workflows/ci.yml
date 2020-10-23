@@ -1,0 +1,103 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - 'release/**'
+    pull_request:
+
+env:
+    ALIAS_VERSION: '7.2'
+    VERSION_FOR_ALIAS: '7.2.34'
+
+jobs:
+    ci:
+        name: Build PHP ${{ matrix.php-version }} (${{ matrix.type }})
+
+        runs-on: ubuntu-latest
+
+        continue-on-error: true
+
+        strategy:
+            matrix:
+                php-version:
+                    - '7.2.34'
+                    - '7.2.33'
+                    - '7.2.32'
+                    - '7.2.31'
+                    - '7.2.30'
+                    - '7.2.29'
+                    - '7.2.28'
+                    - '7.2.27'
+                    - '7.2.26'
+                    - '7.2.25'
+                    - '7.2.24'
+                    - '7.2.23'
+                    - '7.2.22'
+                    - '7.2.21'
+                    - '7.2.20'
+                    - '7.2.19'
+                    - '7.2.18'
+                    - '7.2.17'
+                    - '7.2.16'
+                    - '7.2.15'
+                    - '7.2.14'
+                    - '7.2.13'
+                    - '7.2.12'
+                    - '7.2.11'
+                    - '7.2.10'
+                    - '7.2.9'
+                    - '7.2.8'
+                    - '7.2.7'
+                    - '7.2.6'
+                    - '7.2.5'
+                    - '7.2.4'
+                    - '7.2.3'
+                    - '7.2.2'
+                    - '7.2.1'
+                type: [ 'standard' ]
+
+        steps:
+            -   name: "Checkout code"
+                uses: actions/checkout@v2
+
+            -   if: matrix.type == 'alpine'
+                run: ./build_alpine_version.sh ${{ matrix.php-version }}
+
+            -   if: matrix.type == 'alpine'
+                run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }}-alpine php -i
+
+            -   if: matrix.type == 'alpine'
+                run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }}-alpine php -v
+
+            -   if: matrix.type == 'standard'
+                run: ./build_version.sh ${{ matrix.php-version }}
+
+            -   if: matrix.type == 'standard'
+                run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -i
+
+            -   if: matrix.type == 'standard'
+                run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -v
+
+            -   if: contains(github.ref, 'refs/head/release/')
+                name: Login to DockerHub
+                uses: docker/login-action@v1
+                with:
+                    username: ${{ secrets.DOCKER_USERNAME }}
+                    password: ${{ secrets.DOCKER_PASSWORD }}
+
+            -   if: contains(github.ref, 'refs/head/release/')
+                name: Login to Quay.io
+                uses: docker/login-action@v1
+                with:
+                    registry: quay.io
+                    username: ${{ secrets.QUAY_USERNAME }}
+                    password: ${{ secrets.QUAY_PASSWORD }}
+
+            -   if: contains(github.ref, 'refs/head/release/') && matrix.php_version == env.VERSION_FOR_ALIAS
+                name: "Push PHP ${{ matrix.php-version }} and for version alias ${{ env.ALIAS_VERSION }}"
+                run: ./push_version.sh ${{ matrix.php-version }} ${{ env.ALIAS_VERSION }}
+
+            -   if: contains(github.ref, 'refs/head/release/') && matrix.php_version != env.VERSION_FOR_ALIAS
+                name: "Push PHP ${{ matrix.php-version }}"
+                run: ./push_version.sh ${{ matrix.php-version }}
