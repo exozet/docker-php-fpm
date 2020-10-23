@@ -12,7 +12,7 @@ env:
 
 jobs:
     ci:
-        name: Build PHP ${{ matrix.php-version }} (${{ matrix.type }})
+        name: Build PHP ${{ matrix.php-version }}
 
         runs-on: ubuntu-latest
 
@@ -55,29 +55,16 @@ jobs:
                     - '7.2.3'
                     - '7.2.2'
                     - '7.2.1'
-                type: [ 'standard' ]
 
         steps:
             -   name: "Checkout code"
                 uses: actions/checkout@v2
 
-            -   if: matrix.type == 'alpine'
-                run: ./build_alpine_version.sh ${{ matrix.php-version }}
+            -   run: ./build_version.sh ${{ matrix.php-version }}
 
-            -   if: matrix.type == 'alpine'
-                run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }}-alpine php -i
+            -   run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -i
 
-            -   if: matrix.type == 'alpine'
-                run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }}-alpine php -v
-
-            -   if: matrix.type == 'standard'
-                run: ./build_version.sh ${{ matrix.php-version }}
-
-            -   if: matrix.type == 'standard'
-                run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -i
-
-            -   if: matrix.type == 'standard'
-                run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -v
+            -   run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -v
 
             -   if: contains(github.ref, 'refs/head/release/')
                 name: Login to DockerHub
