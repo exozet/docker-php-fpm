@@ -4,6 +4,7 @@ set -e
 
 PHP_VERSION=$1
 DEBIAN_DISTRO=$2
+DISTRO_SUFFIX=$3
 
 if [ -z "$PHP_VERSION" ]
 then
