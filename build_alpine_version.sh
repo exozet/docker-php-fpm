@@ -24,6 +24,7 @@ cd $FOLDER
 cp ../php.ini php.ini
 cp ../start-cron start-cron
 cp ../start-cron-alpine start-cron-alpine
+cp ../composer.sh composer
 
 echo "Pull latest php:${PHP_VERSION}-fpm-alpine"
 docker pull "php:${PHP_VERSION}-fpm-alpine" >> ../build.log
