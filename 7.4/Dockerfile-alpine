@@ -240,7 +240,7 @@ RUN chmod +x /usr/sbin/start-cron
 
 ADD php.ini /usr/local/etc/php/php.ini
 
-ENV COMPOSER_MAYOR_VERION=1 \
+ENV COMPOSER_VERSION=1 \
     PHP_DATE_TIMEZONE="" \
     PHP_LOG_ERRORS_MAX_LEN=1024 \
     PHP_LOG_ERRORS="1" \

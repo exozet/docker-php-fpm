@@ -89,7 +89,7 @@ COPY start-cron /usr/sbin
 RUN chmod +x /usr/sbin/start-cron
 # Cron
 
-ENV COMPOSER_MAYOR_VERION=1 \
+ENV COMPOSER_VERSION=1 \
     PHP_DATE_TIMEZONE="" \
     PHP_LOG_ERRORS_MAX_LEN=1024 \
     PHP_LOG_ERRORS="" \
