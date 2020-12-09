@@ -58,7 +58,11 @@ RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug
 RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
-COPY --from=composer:1.8.6 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:1.10.17 /usr/bin/composer /usr/local/bin/composer1
+COPY --from=composer:2.0.7 /usr/bin/composer /usr/local/bin/composer2
+
+COPY composer /usr/local/bin/composer
+RUN chmod +x /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y git vim default-mysql-client rsync sshpass bzip2 msmtp unzip
 
@@ -75,7 +79,8 @@ COPY start-cron /usr/sbin
 RUN chmod +x /usr/sbin/start-cron
 # Cron
 
-ENV PHP_DATE_TIMEZONE="" \
+ENV COMPOSER_VERSION=1 \
+    PHP_DATE_TIMEZONE="" \
     PHP_LOG_ERRORS_MAX_LEN=1024 \
     PHP_LOG_ERRORS="" \
     PHP_MAX_EXECUTION_TIME=0 \
