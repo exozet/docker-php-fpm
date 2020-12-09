@@ -33,8 +33,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - redis (5.1.1)
   - amqp (1.9.4)
   - sockets
-- composer 1 cli (1.10.17)
-- composer 2 cli (2.0.7)
+- composer (1.10.17 & 2.07)
 - git cli (2.1.4)
 - vim (7.4)
 - mysql-client (mysql Ver 14.14 Distrib 5.5.58)
@@ -343,4 +342,3 @@ or add this to your docker run command:
 ## LICENSE
 
 The docker-php-fpm is copyright by Exozet (http://exozet.com) and licensed under the terms of MIT License.
-
