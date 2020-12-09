@@ -23,6 +23,7 @@ cd $FOLDER
 
 cp ../php.ini php.ini
 cp ../start-cron start-cron
+cp ../composer.sh composer
 
 echo "Pull latest php:${PHP_VERSION}-fpm"
 docker pull "php:${PHP_VERSION}-fpm" >> ../build.log
