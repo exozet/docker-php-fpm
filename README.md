@@ -34,7 +34,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - ssh2 (0.13)
   - amqp (1.9.1)
   - sockets
-- composer cli (1.8.4)
+- composer (1.10.17 & 2.07)
 - git cli (2.1.4)
 - vim (7.4)
 - mysql-client (mysql Ver 14.14 Distrib 5.5.58)
@@ -96,9 +96,15 @@ Zend Engine v2.5.0, Copyright (c) 1998-2015 Zend Technologies
 
 If you want to run composer:
 
+set ```COMPOSER_VERSION``` to the mayor version you want to use (default ```COMPOSER_VERSION=1``` )
+
 ```console
-$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 composer --version
-Composer version 1.4.1 2017-03-10 09:29:45
+$ docker run --rm -it -v `pwd`:/usr/src/app  exozet/php-fpm:7.4.13 composer --version
+Composer version 1.10.17 2020-10-30 22:31:58
+$ docker run --rm -it -e COMPOSER_VERSION=1 -v `pwd`:/usr/src/app  exozet/php-fpm:7.4.13 composer --version
+Composer version 1.10.17 2020-10-30 22:31:58
+$ docker run --rm -it -e COMPOSER_VERSION=2 -v `pwd`:/usr/src/app  exozet/php-fpm:7.4.13 composer --version
+Composer version 2.0.7 2020-11-13 17:31:06
 ```
 
 ## Sending E-Mail
