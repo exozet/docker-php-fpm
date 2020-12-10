@@ -47,13 +47,13 @@ jobs:
             -   name: "Check Alpine -v"
                 run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }}-alpine php -v
 
-            -   if: "Build standard"
+            -   name: "Build standard"
                 run: ./build_version.sh ${{ matrix.php-version }}
 
-            -   if: "Check Standard -i"
+            -   name: "Check Standard -i"
                 run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -i
 
-            -   if: "Check Standard -v"
+            -   name: "Check Standard -v"
                 run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -v
 
             -   if: contains(github.ref, 'refs/heads/release/')
