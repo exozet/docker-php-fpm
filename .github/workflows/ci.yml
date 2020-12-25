@@ -12,7 +12,7 @@ env:
 
 jobs:
     ci:
-        name: Build PHP ${{ matrix.php-version }} (${{ matrix.type }})
+        name: Build PHP ${{ matrix.php-version }}
 
         runs-on: ubuntu-latest
 
@@ -33,28 +33,27 @@ jobs:
                     - '7.4.3'
                     - '7.4.2'
                     - '7.4.1'
-                type: [ 'standard', 'alpine' ]
 
         steps:
             -   name: "Checkout code"
                 uses: actions/checkout@v2
 
-            -   if: matrix.type == 'alpine'
+            -   name: "Build Alpine"
                 run: ./build_alpine_version.sh ${{ matrix.php-version }}
 
-            -   if: matrix.type == 'alpine'
+            -   name: "Check Alpine -i"
                 run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }}-alpine php -i
 
-            -   if: matrix.type == 'alpine'
+            -   name: "Check Alpine -v"
                 run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }}-alpine php -v
 
-            -   if: matrix.type == 'standard'
+            -   name: "Build standard"
                 run: ./build_version.sh ${{ matrix.php-version }}
 
-            -   if: matrix.type == 'standard'
+            -   name: "Check Standard -i"
                 run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -i
 
-            -   if: matrix.type == 'standard'
+            -   name: "Check Standard -v"
                 run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -v
 
             -   if: contains(github.ref, 'refs/heads/release/')
@@ -76,6 +75,6 @@ jobs:
                 name: "Push PHP ${{ matrix.php-version }} and for version alias ${{ env.ALIAS_VERSION }}"
                 run: ./push_version.sh ${{ matrix.php-version }} ${{ env.ALIAS_VERSION }}
 
-            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php_version != env.VERSION_FOR_ALIAS
+            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php_version != env.VERSION_FOR_ALIAS 
                 name: "Push PHP ${{ matrix.php-version }}"
                 run: ./push_version.sh ${{ matrix.php-version }}
