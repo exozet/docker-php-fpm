@@ -7,8 +7,8 @@ on:
     pull_request:
 
 env:
-    ALIAS_VERSION: '7.4'
-    VERSION_FOR_ALIAS: '7.4.12'
+    ALIAS_VERSION: '8.0'
+    VERSION_FOR_ALIAS: '8.0.0'
 
 jobs:
     ci:
@@ -21,18 +21,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - '7.4.12'
-                    - '7.4.11'
-                    - '7.4.10'
-                    - '7.4.9'
-                    - '7.4.8'
-                    - '7.4.7'
-                    - '7.4.6'
-                    - '7.4.5'
-                    - '7.4.4'
-                    - '7.4.3'
-                    - '7.4.2'
-                    - '7.4.1'
+                    - '8.0.0'
 
         steps:
             -   name: "Checkout code"
@@ -75,6 +64,6 @@ jobs:
                 name: "Push PHP ${{ matrix.php-version }} and for version alias ${{ env.ALIAS_VERSION }}"
                 run: ./push_version.sh ${{ matrix.php-version }} ${{ env.ALIAS_VERSION }}
 
-            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php_version != env.VERSION_FOR_ALIAS 
+            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php_version != env.VERSION_FOR_ALIAS
                 name: "Push PHP ${{ matrix.php-version }}"
                 run: ./push_version.sh ${{ matrix.php-version }}

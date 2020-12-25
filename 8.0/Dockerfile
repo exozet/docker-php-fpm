@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.0-fpm
 
 RUN apt-get update && apt-get install --no-install-recommends -y libz-dev libmemcached-dev \
     && rm -rf /var/lib/apt/lists/*

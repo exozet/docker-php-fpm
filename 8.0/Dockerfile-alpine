@@ -1,4 +1,4 @@
-FROM php:7.4.0-fpm-alpine AS base
+FROM php:8.0.0-fpm-alpine AS base
 
 FROM base AS build-base
 RUN apk add --no-cache --virtual .phpize-base-deps-configure $PHPIZE_DEPS
