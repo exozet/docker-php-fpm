@@ -18,7 +18,19 @@ RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-amqp
 RUN apk add --no-cache rabbitmq-c-dev
-RUN pecl install amqp-1.9.4
+
+# Create directory for amqp extension
+RUN mkdir -p /usr/src/php/ext/amqp
+
+# Download AMQP master branch files to extension directory
+RUN curl -L https://github.com/php-amqp/php-amqp/archive/master.tar.gz | tar -xzC /usr/src/php/ext/amqp --strip-components=1
+
+# Install amqp extension using built-in docker binary
+RUN docker-php-ext-install amqp
+
+# Delete PHP source
+RUN docker-php-source delete
+
 RUN docker-php-ext-enable amqp
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
