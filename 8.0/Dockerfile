@@ -26,20 +26,12 @@ RUN docker-php-ext-configure gd \
     --with-webp
 RUN docker-php-ext-install gd
 
-# Extract PHP source
-RUN docker-php-source extract
-
-# Create directory for amqp extension
-RUN mkdir /usr/src/php/ext/amqp
-
-# Download AMQP master branch files to extension directory
-RUN curl -L https://github.com/php-amqp/php-amqp/archive/master.tar.gz | tar -xzC /usr/src/php/ext/amqp --strip-components=1
-
-# Install amqp extension using built-in docker binary
-RUN docker-php-ext-install amqp
-
-# Delete PHP source
-RUN docker-php-source delete
+# install master version of amqp extension, @TODO upgrade to release version when php8 support is ready
+RUN docker-php-source extract \
+    && mkdir /usr/src/php/ext/amqp \
+    && curl -L https://github.com/php-amqp/php-amqp/archive/master.tar.gz | tar -xzC /usr/src/php/ext/amqp --strip-components=1 \
+    && docker-php-ext-install amqp \
+    && docker-php-source delete
 
 RUN apt-get update && apt-get install --no-install-recommends -y libz-dev libzip-dev \
     && rm -rf /var/lib/apt/lists/*
