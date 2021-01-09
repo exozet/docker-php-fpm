@@ -123,11 +123,14 @@ ENV COMPOSER_VERSION=1 \
 
 WORKDIR /usr/src/app
 
-# imagick
+# install master version of imagick extension, @TODO upgrade to release version when php8 support is ready
 RUN apt-get update && apt-get install --no-install-recommends -y libmagickwand-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && pecl install imagick-3.4.4 \
-    && docker-php-ext-enable imagick
+    && rm -rf /var/lib/apt/lists/*
+RUN docker-php-source extract \
+    && mkdir /usr/src/php/ext/imagick \
+    && curl -L https://github.com/Imagick/imagick/archive/master.tar.gz | tar -xzC /usr/src/php/ext/imagick --strip-components=1 \
+    && docker-php-ext-install imagick \
+    && docker-php-source delete
 
 # Install Postgres PDO
 RUN apt-get update && apt-get install --no-install-recommends -y libpq-dev \
