@@ -21,16 +21,16 @@ fi
 
 cd $FOLDER
 
-cp ../php.ini php.ini
-cp ../start-cron start-cron
-cp ../composer.sh composer
+cp -f ../php.ini php.ini
+cp -f ../start-cron start-cron
+cp -f ../composer.sh composer
 
 echo "Pull latest php:${PHP_VERSION}-fpm"
 docker pull "php:${PHP_VERSION}-fpm" >> ../build.log
 
 echo "Building exozet/php-fpm:${PHP_VERSION}"
 
-echo "FROM php:${PHP_VERSION}-fpm" >> version-Dockerfile
+echo "FROM php:${PHP_VERSION}-fpm" > version-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> version-Dockerfile
 
 docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile . >> ../build.log
