@@ -118,8 +118,8 @@ FROM base
 
 ENV COMPOSER_HOME=/composer
 
-COPY --from=composer:1.10.17 /usr/bin/composer /usr/local/bin/composer1
-COPY --from=composer:2.0.7 /usr/bin/composer /usr/local/bin/composer2
+COPY --from=composer:1.10.19 /usr/bin/composer /usr/local/bin/composer1
+COPY --from=composer:2.0.8 /usr/bin/composer /usr/local/bin/composer2
 
 COPY composer /usr/local/bin
 RUN chmod +x /usr/local/bin/composer
