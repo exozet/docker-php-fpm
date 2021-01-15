@@ -30,7 +30,7 @@ docker pull "php:${PHP_VERSION}-fpm" >> ../build.log
 
 echo "Building exozet/php-fpm:${PHP_VERSION}"
 
-echo "FROM php:${PHP_VERSION}-fpm" >> version-Dockerfile
+echo "FROM php:${PHP_VERSION}-fpm" > version-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> version-Dockerfile
 
 docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile . >> ../build.log

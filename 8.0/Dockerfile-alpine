@@ -1,4 +1,4 @@
-FROM php:7.4.0-fpm-alpine AS base
+FROM php:8.0.0-fpm-alpine AS base
 
 FROM base AS build-base
 RUN apk add --no-cache --virtual .phpize-base-deps-configure $PHPIZE_DEPS
@@ -18,9 +18,14 @@ RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-amqp
 RUN apk add --no-cache rabbitmq-c-dev
-RUN pecl install amqp-1.9.4
-RUN docker-php-ext-enable amqp
-RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+# install master version of amqp extension, @TODO upgrade to release version when php8 support is ready
+RUN docker-php-source extract \
+    && mkdir /usr/src/php/ext/amqp \
+    && curl -L https://github.com/php-amqp/php-amqp/archive/master.tar.gz | tar -xzC /usr/src/php/ext/amqp --strip-components=1 \
+    && docker-php-ext-install amqp \
+    && docker-php-source delete \
+    && cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-zip
 RUN apk add --no-cache libzip-dev
@@ -62,7 +67,7 @@ RUN docker-php-ext-install sockets
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-redis
-RUN pecl install redis-5.1.1
+RUN pecl install redis-5.3.2
 RUN docker-php-ext-enable redis
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
@@ -87,10 +92,14 @@ RUN pecl install memcached-3.1.5
 RUN docker-php-ext-enable memcached
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
+# install master version of imagick extension, @TODO upgrade to release version when php8 support is ready
 FROM build-base AS build-imagick
 RUN apk add --no-cache imagemagick-dev
-RUN pecl install imagick-3.4.4
-RUN docker-php-ext-enable imagick
+RUN docker-php-source extract \
+    && mkdir /usr/src/php/ext/imagick \
+    && curl -L https://github.com/imagick/imagick/archive/master.tar.gz | tar -xzC /usr/src/php/ext/imagick --strip-components=1 \
+    && docker-php-ext-install imagick \
+    && docker-php-source delete
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-pgsql
@@ -110,7 +119,7 @@ RUN docker-php-ext-enable pcov
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-xdebug
-RUN pecl install xdebug-2.9.0
+RUN pecl install xdebug-3.0.2
 RUN docker-php-ext-enable xdebug
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 

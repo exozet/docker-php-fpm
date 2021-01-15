@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.0-fpm
 
 RUN apt-get update && apt-get install --no-install-recommends -y libz-dev libmemcached-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -26,8 +26,12 @@ RUN docker-php-ext-configure gd \
     --with-webp
 RUN docker-php-ext-install gd
 
-RUN pecl install amqp-1.9.4
-RUN docker-php-ext-enable amqp
+# install master version of amqp extension, @TODO upgrade to release version when php8 support is ready
+RUN docker-php-source extract \
+    && mkdir /usr/src/php/ext/amqp \
+    && curl -L https://github.com/php-amqp/php-amqp/archive/master.tar.gz | tar -xzC /usr/src/php/ext/amqp --strip-components=1 \
+    && docker-php-ext-install amqp \
+    && docker-php-source delete
 
 RUN apt-get update && apt-get install --no-install-recommends -y libz-dev libzip-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -45,7 +49,7 @@ RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install calendar
 RUN docker-php-ext-install sockets
 
-RUN pecl install redis-5.1.1 \
+RUN pecl install redis-5.3.2 \
     && docker-php-ext-enable redis
 
 # ldap
@@ -58,7 +62,7 @@ RUN apt-get update && apt-get install --no-install-recommends libldap2-dev -y \
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
-RUN pecl install xdebug-2.9.0
+RUN pecl install xdebug-3.0.2
 RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN docker-php-ext-install soap
@@ -119,11 +123,14 @@ ENV COMPOSER_VERSION=1 \
 
 WORKDIR /usr/src/app
 
-# imagick
+# install master version of imagick extension, @TODO upgrade to release version when php8 support is ready
 RUN apt-get update && apt-get install --no-install-recommends -y libmagickwand-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && pecl install imagick-3.4.4 \
-    && docker-php-ext-enable imagick
+    && rm -rf /var/lib/apt/lists/*
+RUN docker-php-source extract \
+    && mkdir /usr/src/php/ext/imagick \
+    && curl -L https://github.com/Imagick/imagick/archive/master.tar.gz | tar -xzC /usr/src/php/ext/imagick --strip-components=1 \
+    && docker-php-ext-install imagick \
+    && docker-php-source delete
 
 # Install Postgres PDO
 RUN apt-get update && apt-get install --no-install-recommends -y libpq-dev \

@@ -14,14 +14,14 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
     - xpm
     - xbm
   - zip (1.11.0, lib: 0.10.1)
-  - imagick (3.4.4)
+  - imagick (master)
   - intl (1.1.0, icu: 52.1)
   - mysqli (5.0.11-dev)
   - pdo_mysql (5.0.11-dev)
   - pdo_pgsql
   - pgsql
   - pcov (1.0.6)
-  - xdebug (2.9.0)
+  - xdebug (3.0.2)
   - opcache
   - pcntl
   - soap
@@ -30,8 +30,8 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - xsl
   - calendar
   - ldap
-  - redis (5.1.1)
-  - amqp (1.9.4)
+  - redis (5.3.2)
+  - amqp (master)
   - sockets
 - composer (1.10.17 & 2.07)
 - git cli (2.1.4)
