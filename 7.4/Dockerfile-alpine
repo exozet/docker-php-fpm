@@ -130,6 +130,7 @@ RUN apk add --no-cache \
     vim \
     rsync \
     sshpass \
+    openssh-client \
     bzip2 \
     msmtp \
     unzip \
