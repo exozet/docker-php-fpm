@@ -8,7 +8,7 @@ on:
 
 env:
     ALIAS_VERSION: '8.0'
-    VERSION_FOR_ALIAS: '8.0.1'
+    VERSION_FOR_ALIAS: '8.0.3'
 
 jobs:
     ci:
@@ -21,8 +21,10 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - '8.0.0'
+                    - '8.0.3'
+                    - '8.0.2'
                     - '8.0.1'
+                    - '8.0.0'
 
         steps:
             -   name: "Checkout code"
@@ -61,10 +63,10 @@ jobs:
                     username: ${{ secrets.QUAY_USERNAME }}
                     password: ${{ secrets.QUAY_PASSWORD }}
 
-            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php_version == env.VERSION_FOR_ALIAS
+            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php-version == env.VERSION_FOR_ALIAS
                 name: "Push PHP ${{ matrix.php-version }} and for version alias ${{ env.ALIAS_VERSION }}"
                 run: ./push_version.sh ${{ matrix.php-version }} ${{ env.ALIAS_VERSION }}
 
-            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php_version != env.VERSION_FOR_ALIAS
+            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php-version != env.VERSION_FOR_ALIAS
                 name: "Push PHP ${{ matrix.php-version }}"
                 run: ./push_version.sh ${{ matrix.php-version }}
