@@ -100,7 +100,7 @@ Zend Engine v2.5.0, Copyright (c) 1998-2015 Zend Technologies
 
 If you want to run composer:
 
-set ```COMPOSER_VERSION``` to the mayor version you want to use (default ```COMPOSER_VERSION=1``` )
+set ```COMPOSER_VERSION``` to the mayor version you want to use (default ```COMPOSER_VERSION=2``` )
 
 ```console
 $ docker run --rm -it -v `pwd`:/usr/src/app  exozet/php-fpm:7.4.13 composer --version
