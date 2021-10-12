@@ -94,7 +94,7 @@ RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 # install master version of imagick extension, @TODO upgrade to release version when php8 support is ready
 FROM build-base AS build-imagick
-RUN apk add --no-cache imagemagick-dev
+RUN apk add --no-cache imagemagick-dev libgomp
 RUN docker-php-source extract \
     && mkdir /usr/src/php/ext/imagick \
     && curl -L https://github.com/imagick/imagick/archive/master.tar.gz | tar -xzC /usr/src/php/ext/imagick --strip-components=1 \
