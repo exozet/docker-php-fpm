@@ -92,14 +92,10 @@ RUN pecl install memcached-3.1.5
 RUN docker-php-ext-enable memcached
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
-# install master version of imagick extension, @TODO upgrade to release version when php8 support is ready
 FROM build-base AS build-imagick
 RUN apk add --no-cache imagemagick-dev
-RUN docker-php-source extract \
-    && mkdir /usr/src/php/ext/imagick \
-    && curl -L https://github.com/imagick/imagick/archive/master.tar.gz | tar -xzC /usr/src/php/ext/imagick --strip-components=1 \
-    && docker-php-ext-install imagick \
-    && docker-php-source delete
+RUN pecl install imagick-3.5.1
+RUN docker-php-ext-enable imagick
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-pgsql
