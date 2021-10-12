@@ -219,7 +219,7 @@ RUN mv /tmp/memcached.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
 
 COPY --from=build-imagick /tmp/imagick.so /tmp/imagick.so
 RUN mv /tmp/imagick.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/ \
-    && apk add --no-cache imagemagick \
+    && apk add --no-cache imagemagick libgomp \
     && docker-php-ext-enable imagick
 
 COPY --from=build-pgsql /tmp/pgsql.so /tmp/pgsql.so
