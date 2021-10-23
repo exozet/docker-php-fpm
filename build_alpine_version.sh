@@ -51,8 +51,10 @@ docker build -t exozet/php-fpm:${PHP_VERSION}-sudo-alpine -f sudo-Dockerfile . >
 cp sudo-Dockerfile xdebug-Dockerfile
 echo '' >> xdebug-Dockerfile
 
-echo 'COPY --from=build-xdebug /tmp/xdebug.so /tmp/xdebug.so' >> xdebug-Dockerfile
+echo 'COPY --from=build-xdebug2 /tmp/xdebug.so /tmp/xdebug.so' >> xdebug-Dockerfile
+echo 'COPY --from=build-xdebug3 /tmp/xdebug.so /tmp/xdebug3.so' >> xdebug-Dockerfile
 echo "RUN mv /tmp/xdebug.so \`php -i | grep ^extension_dir | cut -f 3 -d ' '\`/ && docker-php-ext-enable xdebug" >> xdebug-Dockerfile
+echo "RUN mv /tmp/xdebug3.so \`php -i | grep ^extension_dir | cut -f 3 -d ' '\`/ " >> xdebug-Dockerfile
 
 echo "Building exozet/php-fpm:${PHP_VERSION}-xdebug-alpine"
 docker build -t exozet/php-fpm:${PHP_VERSION}-xdebug-alpine -f xdebug-Dockerfile . >> ../build.log

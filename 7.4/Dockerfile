@@ -58,8 +58,13 @@ RUN apt-get update && apt-get install --no-install-recommends libldap2-dev -y \
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
+RUN pecl install xdebug-2.9.0
+RUN mv `php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug2.so
+RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug2.so" >> /usr/local/etc/php/conf.d/xdebug.ini
+
 RUN pecl install xdebug-3.1.0
-RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
+RUN mv `php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so `php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug3.so
+RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug3.so" >> /usr/local/etc/php/conf.d/xdebug3.ini
 
 RUN docker-php-ext-install soap
 
@@ -109,8 +114,15 @@ ENV COMPOSER_VERSION=2 \
     PHP_SESSION_SAVE_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
     PHP_UPLOAD_MAX_FILESIZE=2M \
-    PHP_XDEBUG_MODE=off \
-    PHP_XDEBUG_START_WITH_REQUEST=default \
+    PHP_XDEBUG_DEFAULT_ENABLE=0 \
+    PHP_XDEBUG_IDEKEY=''\
+    PHP_XDEBUG_PROFILER_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_AUTOSTART=0 \
+    PHP_XDEBUG_REMOTE_CONNECT_BACK=0 \
+    PHP_XDEBUG_REMOTE_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_HOST=0 \
+    PHP_XDEBUG3_MODE='off' \
+    PHP_XDEBUG3_START_WITH_REQUEST=default \
     XDEBUG_CONFIG=""
 
 WORKDIR /usr/src/app

@@ -109,9 +109,13 @@ RUN pecl install pcov-1.0.6
 RUN docker-php-ext-enable pcov
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
-FROM build-base AS build-xdebug
-RUN pecl install xdebug-3.1.0
+FROM build-base AS build-xdebug2
+RUN pecl install xdebug-2.9.0
 RUN docker-php-ext-enable xdebug
+RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
+
+FROM build-base AS build-xdebug3
+RUN pecl install xdebug-3.1.0
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM base
@@ -261,8 +265,15 @@ ENV COMPOSER_VERSION=2 \
     PHP_SESSION_SAVE_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
     PHP_UPLOAD_MAX_FILESIZE=2M \
-    PHP_XDEBUG_MODE=off \
-    PHP_XDEBUG_START_WITH_REQUEST=default \
+    PHP_XDEBUG_DEFAULT_ENABLE=0 \
+    PHP_XDEBUG_IDEKEY=''\
+    PHP_XDEBUG_PROFILER_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_AUTOSTART=0 \
+    PHP_XDEBUG_REMOTE_CONNECT_BACK=0 \
+    PHP_XDEBUG_REMOTE_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_HOST=0 \
+    PHP_XDEBUG3_MODE='off' \
+    PHP_XDEBUG3_START_WITH_REQUEST=default \
     XDEBUG_CONFIG=""
-    
+
 WORKDIR /usr/src/app
