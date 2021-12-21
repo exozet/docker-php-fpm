@@ -67,7 +67,7 @@ RUN docker-php-ext-install sockets
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-redis
-RUN pecl install redis-5.3.2
+RUN pecl install redis-5.3.5
 RUN docker-php-ext-enable redis
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
