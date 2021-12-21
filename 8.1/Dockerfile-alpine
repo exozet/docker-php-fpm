@@ -115,7 +115,7 @@ RUN docker-php-ext-enable pcov
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-xdebug
-RUN pecl install xdebug-3.0.2
+RUN pecl install xdebug-3.1.2
 RUN docker-php-ext-enable xdebug
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 

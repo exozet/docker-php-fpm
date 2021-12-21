@@ -62,7 +62,7 @@ RUN apt-get update && apt-get install --no-install-recommends libldap2-dev -y \
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
-RUN pecl install xdebug-3.0.2
+RUN pecl install xdebug-3.1.2
 RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN docker-php-ext-install soap
