@@ -18,7 +18,7 @@ This is a docker php fpm image, based on the official php fpm image.
 | **5.4** | [release/5.4](https://github.com/exozet/docker-php-fpm/tree/release/5.4) | [![Build Status][github_actions_54_badge]][github_actions_54_link] |
 
 [github_actions_81_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/8.1
-[github_actions_80_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F8.1
+[github_actions_81_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F8.1
 
 [github_actions_80_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/8.0
 [github_actions_80_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F8.0
