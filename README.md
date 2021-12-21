@@ -21,7 +21,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - pdo_pgsql
   - pgsql
   - pcov (1.0.6)
-  - xdebug (3.0.2)
+  - xdebug (3.1.2)
   - opcache
   - pcntl
   - soap
@@ -30,7 +30,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - xsl
   - calendar
   - ldap
-  - redis (5.3.2)
+  - redis (5.3.5)
   - amqp (master)
   - sockets
 - composer (1.10.17 & 2.1.9)
