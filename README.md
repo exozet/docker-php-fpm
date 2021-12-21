@@ -6,7 +6,7 @@ This is a docker php fpm image, based on the official php fpm image.
 
 | Version | Branch | Status |
 | --- | --- | --- |
-| **8.1** | [release/8.0](https://github.com/exozet/docker-php-fpm/tree/release/8.1) | [![Build Status][github_actions_80_badge]][github_actions_80_link] |
+| **8.1** | [release/8.1](https://github.com/exozet/docker-php-fpm/tree/release/8.1) | [![Build Status][github_actions_81_badge]][github_actions_81_link] |
 | **8.0** | [release/8.0](https://github.com/exozet/docker-php-fpm/tree/release/8.0) | [![Build Status][github_actions_80_badge]][github_actions_80_link] |
 | **7.4** | [release/7.4](https://github.com/exozet/docker-php-fpm/tree/release/7.4) | [![Build Status][github_actions_74_badge]][github_actions_74_link] |
 | **7.3** | [release/7.3](https://github.com/exozet/docker-php-fpm/tree/release/7.3) | [![Build Status][github_actions_73_badge]][github_actions_73_link] |
