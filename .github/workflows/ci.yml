@@ -7,8 +7,8 @@ on:
     pull_request:
 
 env:
-    ALIAS_VERSION: '8.0'
-    VERSION_FOR_ALIAS: '8.0.14'
+    ALIAS_VERSION: '8.1'
+    VERSION_FOR_ALIAS: '8.1.1'
 
 jobs:
     ci:
@@ -21,21 +21,8 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - '8.0.14'
-                    - '8.0.13'
-                    - '8.0.12'
-                    - '8.0.11'
-                    - '8.0.10'
-                    - '8.0.9'
-                    - '8.0.8'
-                    - '8.0.7'
-                    - '8.0.6'
-                    - '8.0.5'
-                    - '8.0.3'
-                    - '8.0.2'
-                    - '8.0.1'
-                    - '8.0.0'
-
+                    - '8.1.1'
+                    - '8.1.0'
         steps:
             -   name: "Checkout code"
                 uses: actions/checkout@v2

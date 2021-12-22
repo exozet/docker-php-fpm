@@ -1,4 +1,4 @@
-FROM php:8.0.0-fpm-alpine AS base
+FROM php:8.1.0-fpm-alpine AS base
 
 FROM base AS build-base
 RUN apk add --no-cache --virtual .phpize-base-deps-configure $PHPIZE_DEPS
@@ -67,7 +67,7 @@ RUN docker-php-ext-install sockets
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-redis
-RUN pecl install redis-5.3.2
+RUN pecl install redis-5.3.5
 RUN docker-php-ext-enable redis
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
@@ -115,7 +115,7 @@ RUN docker-php-ext-enable pcov
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-xdebug
-RUN pecl install xdebug-3.0.2
+RUN pecl install xdebug-3.1.2
 RUN docker-php-ext-enable xdebug
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
