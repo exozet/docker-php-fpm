@@ -139,6 +139,7 @@ RUN apk add --no-cache \
     msmtp \
     unzip \
     make \
+    openssh-client \
     gnu-libiconv
 
 # see https://github.com/docker-library/php/issues/240
