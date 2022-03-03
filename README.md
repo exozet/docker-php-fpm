@@ -39,6 +39,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
 - mysql-client (mysql Ver 14.14 Distrib 5.5.58)
 - rsync (3.1.1)
 - sshpass (1.05)
+- openssh-client
 - bzip2
 - msmtp
 - unzip
