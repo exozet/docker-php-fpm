@@ -76,7 +76,7 @@ RUN chmod +x /usr/local/bin/composer
 
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    git vim default-mysql-client rsync sshpass openssh-client bzip2 msmtp unzip \
+    git git-lfs vim default-mysql-client rsync sshpass openssh-client bzip2 msmtp unzip \
     && rm -rf /var/lib/apt/lists/*
 
 ADD php.ini /usr/local/etc/php/php.ini

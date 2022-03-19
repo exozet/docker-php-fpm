@@ -35,6 +35,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - sockets
 - composer (1.10.17 & 2.2)
 - git cli (2.1.4)
+- git-lfs (v3)
 - vim (7.4)
 - mysql-client (mysql Ver 14.14 Distrib 5.5.58)
 - rsync (3.1.1)
@@ -80,7 +81,7 @@ xdebug.remote_host=${PHP_XDEBUG_REMOTE_HOST}
 ### Run PHP-FPM Server
 
 ```console
-$ docker run --rm -p 9000:9000 -v `pwd`:/usr/src/app exozet/php-fpm:5.5.38
+$ docker run --rm -p 9000:9000 -v `pwd`:/usr/src/app exozet/php-fpm:8.0.16
 ```
 
 ### Run PHP-CLI
@@ -88,17 +89,18 @@ $ docker run --rm -p 9000:9000 -v `pwd`:/usr/src/app exozet/php-fpm:5.5.38
 If you want to launch a shell:
 
 ```console
-$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 bash
+$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:8.0.16 bash
 ```
 
 If you want to run a php command:
 
 ```console
-$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 php -v
-PHP 5.5.38 (cli) (built: Aug 10 2016 21:09:37)
-Copyright (c) 1997-2015 The PHP Group
-Zend Engine v2.5.0, Copyright (c) 1998-2015 Zend Technologies
-    with Zend OPcache v7.0.6-dev, Copyright (c) 1999-2015, by Zend Technologies
+$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:8.0.16 php -v
+PHP 8.0.16 (cli) (built: Mar  1 2022 20:21:43) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v4.0.16, Copyright (c) Zend Technologies
+    with Zend OPcache v8.0.16, Copyright (c), by Zend Technologies
+    with Xdebug v3.0.2, Copyright (c) 2002-2021, by Derick Rethans
 ```
 
 If you want to run composer:
@@ -106,11 +108,11 @@ If you want to run composer:
 set ```COMPOSER_VERSION``` to the major version you want to use (default ```COMPOSER_VERSION=2``` ) 
 
 ```console
-$ docker run --rm -it -v `pwd`:/usr/src/app  exozet/php-fpm:7.4.13 composer --version
+$ docker run --rm -it -v `pwd`:/usr/src/app  exozet/php-fpm:8.0.16 composer --version
 Composer version 1.10.17 2020-10-30 22:31:58
-$ docker run --rm -it -e COMPOSER_VERSION=1 -v `pwd`:/usr/src/app  exozet/php-fpm:7.4.13 composer --version
+$ docker run --rm -it -e COMPOSER_VERSION=1 -v `pwd`:/usr/src/app  exozet/php-fpm:8.0.16 composer --version
 Composer version 1.10.17 2020-10-30 22:31:58
-$ docker run --rm -it -e COMPOSER_VERSION=2 -v `pwd`:/usr/src/app  exozet/php-fpm:7.4.13 composer --version
+$ docker run --rm -it -e COMPOSER_VERSION=2 -v `pwd`:/usr/src/app  exozet/php-fpm:8.0.16 composer --version
 Composer version 2.0.7 2020-11-13 17:31:06
 ```
 
@@ -157,7 +159,7 @@ You can define the crontab's content with an environment variable like this:
 ```yaml
 services:
   import-data-cron:
-    image: exozet/php-fpm:7.1.10
+    image: exozet/php-fpm:8.0.16
     command: start-cron
     environment:
       - 'CRONTAB_USER=www-data'
@@ -201,7 +203,7 @@ Usage in your `docker-compose.yml`:
 ```yaml
 services:
   crontab:
-    image: exozet/php-fpm:7.1.10
+    image: exozet/php-fpm:8.0.16
     command: start-cron
     volumes:
       - ./:/usr/src/app
@@ -214,7 +216,7 @@ cron location with the `CRON_PATH` environment variable:
 ```yaml
 services:
   crontab:
-    image: exozet/php-fpm:7.1.10
+    image: exozet/php-fpm:8.0.16
     command: start-cron
     environment:
       - CRON_PATH=/usr/src/app/crontabs
@@ -231,7 +233,7 @@ version: "2.1"
 
 services:
   php-cli:
-    image: exozet/php-fpm:5.5.38-sudo
+    image: exozet/php-fpm:8.0.16-sudo
     volumes:
       - ./:/usr/src/app
     user: "${UID-www-data}:${GID-www-data}"
@@ -239,7 +241,7 @@ services:
     depends_on:
       - nginx
   php-fpm:
-    image: exozet/php-fpm:5.5.38
+    image: exozet/php-fpm:8.0.16
     volumes:
       - ./:/usr/src/app
   nginx:

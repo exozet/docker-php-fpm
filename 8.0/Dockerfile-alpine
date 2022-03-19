@@ -131,6 +131,7 @@ RUN chmod +x /usr/local/bin/composer
 
 RUN apk add --no-cache \
     git \
+    git-lfs \
     mysql-client \
     vim \
     rsync \
