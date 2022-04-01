@@ -46,24 +46,24 @@ jobs:
             -   name: "Check Standard -v"
                 run: docker run --rm -t exozet/php-fpm:${{ matrix.php-version }} php -v
 
-            -   name: Run Trivy vulnerability scanner
+            -   name: Run Alpine Trivy vulnerability scanner
                 uses: aquasecurity/trivy-action@master
                 with:
-                  image-ref: 'exozet/php-fpm:${{ matrix.php-version }}'
+                  image-ref: 'exozet/php-fpm:${{ matrix.php-version }}-alpine'
                   format: 'table'
                   exit-code: '0' # we don't break the build if vulnerabilities are included!
                   ignore-unfixed: true
                   vuln-type: 'os,library'
                   severity: 'CRITICAL,HIGH'
 
-            -   name: Run Trivy vulnerability scanner and upload to github security tab
+            -   name: Run Alpine Trivy vulnerability scanner and upload to github security tab
                 uses: aquasecurity/trivy-action@master
                 with:
-                  image-ref: 'exozet/php-fpm:${{ matrix.php-version }}'
+                  image-ref: 'exozet/php-fpm:${{ matrix.php-version }}-alpine'
                   format: 'sarif'
                   output: 'trivy-results.sarif'
 
-            -   name: Upload Trivy scan results to GitHub Security tab
+            -   name: Upload Alpine Trivy scan results to GitHub Security tab
                 uses: github/codeql-action/upload-sarif@v1
                 with:
                   sarif_file: 'trivy-results.sarif'
