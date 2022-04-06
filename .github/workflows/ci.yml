@@ -81,6 +81,7 @@ jobs:
                 with:
                   sarif_file: 'trivy-results.sarif'
                   ref: '${{ github.ref }}:${{ matrix.php-version }}'
+                  sha: '${{ github.sha }}'
 
             -   if: contains(github.ref, 'refs/heads/release/')
                 name: Login to DockerHub
