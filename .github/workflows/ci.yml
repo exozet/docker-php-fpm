@@ -69,19 +69,19 @@ jobs:
                   vuln-type: 'os,library'
                   severity: 'CRITICAL,HIGH'
 
-            -   name: Run Alpine Trivy vulnerability scanner and upload to github security tab
+            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php-version == env.VERSION_FOR_ALIAS
+                name: Run Alpine Trivy vulnerability scanner and upload to github security tab
                 uses: aquasecurity/trivy-action@master
                 with:
                   image-ref: 'exozet/php-fpm:${{ matrix.php-version }}-alpine'
                   format: 'sarif'
                   output: 'trivy-results.sarif'
 
-            -   name: Upload Alpine Trivy scan results to GitHub Security tab
+            -   if: contains(github.ref, 'refs/heads/release/') && matrix.php-version == env.VERSION_FOR_ALIAS
+                name: Upload Alpine Trivy scan results to GitHub Security tab
                 uses: github/codeql-action/upload-sarif@v1
                 with:
                   sarif_file: 'trivy-results.sarif'
-                  ref: '${{ github.ref }}:${{ matrix.php-version }}'
-                  sha: '${{ github.sha }}'
 
             -   if: contains(github.ref, 'refs/heads/release/')
                 name: Login to DockerHub
