@@ -80,6 +80,7 @@ jobs:
                 uses: github/codeql-action/upload-sarif@v1
                 with:
                   sarif_file: 'trivy-results.sarif'
+                  ref: '${{ ref }}:${{ matrix.php-version }}'
 
             -   if: contains(github.ref, 'refs/heads/release/')
                 name: Login to DockerHub
