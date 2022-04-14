@@ -65,7 +65,7 @@ RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
 COPY --from=composer:1.10.20 /usr/bin/composer /usr/local/bin/composer1
-COPY --from=composer:2.2 /usr/bin/composer /usr/local/bin/composer2
+COPY --from=composer:2.3.5 /usr/bin/composer /usr/local/bin/composer2
 
 COPY composer /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
