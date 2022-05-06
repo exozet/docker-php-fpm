@@ -94,7 +94,7 @@ RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-imagick
 RUN apk add --no-cache imagemagick-dev
-RUN pecl install imagick-3.5.1
+RUN pecl install imagick-3.7.0
 RUN docker-php-ext-enable imagick
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
