@@ -63,6 +63,8 @@ RUN docker-php-ext-install calendar
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-sockets
+RUN apk add -U linux-headers
+RUN docker-php-ext-configure sockets --enable-sockets
 RUN docker-php-ext-install sockets
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
