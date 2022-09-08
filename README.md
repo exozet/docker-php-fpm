@@ -33,7 +33,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - redis (5.1.1)
   - amqp (1.9.4)
   - sockets
-- composer (1.10.26 & 2.3.5)
+- composer (1.10.26 & 2.4.1)
 - git cli (2.1.4)
 - git-lfs (v3)
 - vim (7.4)
