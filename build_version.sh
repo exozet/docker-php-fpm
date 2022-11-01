@@ -33,7 +33,7 @@ echo "Building exozet/php-fpm:${PHP_VERSION}"
 echo "FROM php:${PHP_VERSION}-fpm" > version-Dockerfile
 cat Dockerfile | grep -v '^FROM' >> version-Dockerfile
 
-docker build -t exozet/php-fpm:${PHP_VERSION} -f version-Dockerfile . >> ../build.log
+docker build -t exozet/php-fpm:${PHP_VERSION} --platform linux/arm64 --platform linux/amd64 -f version-Dockerfile . >> ../build.log
 
 rm -f version-Dockerfile
 
@@ -45,7 +45,7 @@ echo 'RUN chsh www-data -s /bin/bash' >> sudo-Dockerfile
 echo 'RUN echo "www-data ALL = NOPASSWD: ALL" > /etc/sudoers.d/www-data' >> sudo-Dockerfile
 
 echo "Building exozet/php-fpm:${PHP_VERSION}-sudo"
-docker build -t exozet/php-fpm:${PHP_VERSION}-sudo -f sudo-Dockerfile . >> ../build.log
+docker build -t exozet/php-fpm:${PHP_VERSION}-sudo --platform linux/arm64 --platform linux/amd64 -f sudo-Dockerfile . >> ../build.log
 
 rm -f sudo-Dockerfile
 
@@ -55,7 +55,7 @@ echo '' >> root-Dockerfile
 echo 'USER root' >> root-Dockerfile
 
 echo "Building exozet/php-fpm:${PHP_VERSION}-root"
-docker build -t exozet/php-fpm:${PHP_VERSION}-root -f root-Dockerfile . >> ../build.log
+docker build -t exozet/php-fpm:${PHP_VERSION}-root --platform linux/arm64 --platform linux/amd64 -f root-Dockerfile . >> ../build.log
 
 rm -f root-Dockerfile
 rm -f php.ini
