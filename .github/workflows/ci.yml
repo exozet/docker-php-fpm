@@ -21,6 +21,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
+                    - '8.1.12'
                     - '8.1.11'                    
                     - '8.1.10'
                     - '8.1.9'
