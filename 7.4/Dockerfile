@@ -58,7 +58,7 @@ RUN apt-get update && apt-get install --no-install-recommends libldap2-dev -y \
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
-RUN pecl install xdebug-2.9.0
+RUN pecl install xdebug-3.1.6
 RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN docker-php-ext-install soap
@@ -109,13 +109,11 @@ ENV COMPOSER_VERSION=2 \
     PHP_SESSION_SAVE_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
     PHP_UPLOAD_MAX_FILESIZE=2M \
-    PHP_XDEBUG_DEFAULT_ENABLE=0 \
-    PHP_XDEBUG_IDEKEY=''\
-    PHP_XDEBUG_PROFILER_ENABLE=0 \
-    PHP_XDEBUG_REMOTE_AUTOSTART=0 \
-    PHP_XDEBUG_REMOTE_CONNECT_BACK=0 \
-    PHP_XDEBUG_REMOTE_ENABLE=0 \
-    PHP_XDEBUG_REMOTE_HOST=0
+    PHP_XDEBUG_MODE='off' \
+    PHP_XDEBUG_START_WITH_REQUEST='default' \
+    PHP_XDEBUG_CLIENT_HOST='localhost' \
+    PHP_XDEBUG_DISCOVER_CLIENT_HOST='false' \
+    PHP_XDEBUG_IDEKEY=''
 
 WORKDIR /usr/src/app
 
