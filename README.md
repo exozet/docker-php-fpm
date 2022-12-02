@@ -21,7 +21,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - pdo_pgsql
   - pgsql
   - pcov (1.0.6)
-  - xdebug (2.9.0)
+  - xdebug (3.1.6)
   - opcache
   - pcntl
   - soap
@@ -67,13 +67,11 @@ sendmail_path=${PHP_SENDMAIL_PATH}
 session.save_handler=${PHP_SESSION_SAVE_HANDLER};
 session.save_path=${PHP_SESSION_SAVE_PATH};
 upload_max_filesize=${PHP_UPLOAD_MAX_FILESIZE};
-xdebug.default_enable=${PHP_XDEBUG_DEFAULT_ENABLE}
+xdebug.mode=${PHP_XDEBUG_MODE}
+xdebug.start_with_request=${PHP_XDEBUG_START_WITH_REQUEST}
+xdebug.discover_client_host=${PHP_XDEBUG_DISCOVER_CLIENT_HOST}
+xdebug.client_host=${PHP_XDEBUG_CLIENT_HOST}
 xdebug.idekey=${PHP_XDEBUG_IDEKEY}
-xdebug.profiler_enable=${PHP_XDEBUG_PROFILER_ENABLE}
-xdebug.remote_autostart=${PHP_XDEBUG_REMOTE_AUTOSTART}
-xdebug.remote_connect_back=${PHP_XDEBUG_REMOTE_CONNECT_BACK}
-xdebug.remote_enable=${PHP_XDEBUG_REMOTE_ENABLE}
-xdebug.remote_host=${PHP_XDEBUG_REMOTE_HOST}
 ```
 
 ## Usage "docker"
