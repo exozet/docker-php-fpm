@@ -6,6 +6,7 @@ This is a docker php fpm image, based on the official php fpm image.
 
 | Version | Branch | Status |
 | --- | --- | --- |
+| **8.2** | [release/8.2](https://github.com/exozet/docker-php-fpm/tree/release/8.2) | [![Build Status][github_actions_81_badge]][github_actions_81_link] |
 | **8.1** | [release/8.1](https://github.com/exozet/docker-php-fpm/tree/release/8.1) | [![Build Status][github_actions_81_badge]][github_actions_81_link] |
 | **8.0** | [release/8.0](https://github.com/exozet/docker-php-fpm/tree/release/8.0) | [![Build Status][github_actions_80_badge]][github_actions_80_link] |
 | **7.4** | [release/7.4](https://github.com/exozet/docker-php-fpm/tree/release/7.4) | [![Build Status][github_actions_74_badge]][github_actions_74_link] |
@@ -16,6 +17,9 @@ This is a docker php fpm image, based on the official php fpm image.
 | **5.6** | [release/5.6](https://github.com/exozet/docker-php-fpm/tree/release/5.6) | [![Build Status][github_actions_56_badge]][github_actions_56_link] |
 | **5.5** | [release/5.5](https://github.com/exozet/docker-php-fpm/tree/release/5.5) | [![Build Status][github_actions_55_badge]][github_actions_55_link] |
 | **5.4** | [release/5.4](https://github.com/exozet/docker-php-fpm/tree/release/5.4) | [![Build Status][github_actions_54_badge]][github_actions_54_link] |
+
+[github_actions_82_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/8.2
+[github_actions_82_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F8.2
 
 [github_actions_81_badge]: https://github.com/exozet/docker-php-fpm/workflows/CI/badge.svg?branch=release/8.1
 [github_actions_81_link]: https://github.com/exozet/docker-php-fpm/actions?query=branch%3Arelease%2F8.1
