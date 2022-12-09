@@ -5,23 +5,23 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
 - extensions
   - memcached (3.1.5)
   - gd (2.1.0)
-    - png (1.2.50)
-    - jpeg (6b)
+    - png (1.6.38)
+    - jpeg (8)
     - webp
-    - freetype (2.5.2)
+    - freetype (2.12.1)
     - gif create/read
     - wbmp
     - xpm
     - xbm
-  - zip (1.11.0, lib: 0.10.1)
-  - imagick (3.5.1)
-  - intl (1.1.0, icu: 52.1)
-  - mysqli (5.0.11-dev)
-  - pdo_mysql (5.0.11-dev)
+  - zip (1.21.1, lib: 1.9.2)
+  - imagick (3.7.0)
+  - intl (icu: 72.1)
+  - mysqli (8.2.0)
+  - pdo_mysql (8.2.0)
   - pdo_pgsql
   - pgsql
-  - pcov (1.0.6)
-  - xdebug (3.1.2)
+  - pcov (1.0.11)
+  - xdebug (3.2.0)
   - opcache
   - pcntl
   - soap
@@ -34,12 +34,12 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - amqp (master)
   - sockets
 - composer (1.10.26 & 2.4.1)
-- git cli (2.1.4)
-- git-lfs (v3)
-- vim (7.4)
-- mysql-client (mysql Ver 14.14 Distrib 5.5.58)
-- rsync (3.1.1)
-- sshpass (1.05)
+- git cli (2.38.1)
+- git-lfs (3.2.0)
+- vim (9.0.999)
+- mysql-client (mysql  Ver 15.1 Distrib 10.6.11-MariaDB)
+- rsync (3.2.7)
+- sshpass (1.09)
 - openssh-client
 - bzip2
 - msmtp
