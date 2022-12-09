@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 RUN apt-get update && apt-get dist-upgrade -y && echo "Security Update enforced on 2022/04/01"
 
@@ -64,14 +64,14 @@ RUN apt-get update && apt-get install --no-install-recommends libldap2-dev -y \
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
-RUN pecl install xdebug-3.1.2
+RUN pecl install xdebug-3.2.0
 RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
 COPY --from=composer:1.10.26 /usr/bin/composer /usr/local/bin/composer1
-COPY --from=composer:2.4.1 /usr/bin/composer /usr/local/bin/composer2
+COPY --from=composer:2.3.5 /usr/bin/composer /usr/local/bin/composer2
 
 COPY composer /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
@@ -96,7 +96,7 @@ RUN chmod +x /usr/sbin/start-cron
 # Cron
 
 ENV COMPOSER_VERSION=2 \
-    PHP_DATE_TIMEZONE="" \
+    PHP_DATE_TIMEZONE="UTC" \
     PHP_LOG_ERRORS_MAX_LEN=1024 \
     PHP_LOG_ERRORS="" \
     PHP_MAX_EXECUTION_TIME=0 \
@@ -115,11 +115,13 @@ ENV COMPOSER_VERSION=2 \
     PHP_SESSION_SAVE_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
     PHP_UPLOAD_MAX_FILESIZE=2M \
-    PHP_XDEBUG_MODE='off' \
-    PHP_XDEBUG_START_WITH_REQUEST='default' \
-    PHP_XDEBUG_CLIENT_HOST='localhost' \
-    PHP_XDEBUG_DISCOVER_CLIENT_HOST='false' \
-    PHP_XDEBUG_IDEKEY=''
+    PHP_XDEBUG_DEFAULT_ENABLE=0 \
+    PHP_XDEBUG_IDEKEY=''\
+    PHP_XDEBUG_PROFILER_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_AUTOSTART=0 \
+    PHP_XDEBUG_REMOTE_CONNECT_BACK=0 \
+    PHP_XDEBUG_REMOTE_ENABLE=0 \
+    PHP_XDEBUG_REMOTE_HOST=0
 
 WORKDIR /usr/src/app
 
@@ -138,5 +140,5 @@ RUN apt-get update && apt-get install --no-install-recommends -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo_pgsql pgsql
 
-RUN pecl install pcov-1.0.6
+RUN pecl install pcov-1.0.11
 RUN docker-php-ext-enable pcov
