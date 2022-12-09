@@ -3,7 +3,7 @@
 This is a docker php fpm image, based on the official php fpm image. It has the following additions:
 
 - extensions
-  - memcached (3.1.5)
+  - memcached (3.2.0)
   - gd (2.1.0)
     - png (1.2.50)
     - jpeg (6b)
