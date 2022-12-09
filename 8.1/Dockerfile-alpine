@@ -88,7 +88,7 @@ RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-memcached
 RUN apk add --no-cache  zlib-dev libmemcached-dev
-RUN pecl install memcached-3.1.5
+RUN pecl install memcached-3.2.0
 RUN docker-php-ext-enable memcached
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
