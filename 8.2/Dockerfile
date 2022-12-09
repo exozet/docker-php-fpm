@@ -96,7 +96,7 @@ RUN chmod +x /usr/sbin/start-cron
 # Cron
 
 ENV COMPOSER_VERSION=2 \
-    PHP_DATE_TIMEZONE="" \
+    PHP_DATE_TIMEZONE="UTC" \
     PHP_LOG_ERRORS_MAX_LEN=1024 \
     PHP_LOG_ERRORS="" \
     PHP_MAX_EXECUTION_TIME=0 \
