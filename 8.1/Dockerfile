@@ -51,7 +51,7 @@ RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install calendar
 RUN docker-php-ext-install sockets
 
-RUN pecl install redis-5.3.5 \
+RUN pecl install redis-5.3.7 \
     && docker-php-ext-enable redis
 
 # ldap
