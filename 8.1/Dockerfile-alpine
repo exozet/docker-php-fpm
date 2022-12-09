@@ -110,7 +110,7 @@ RUN docker-php-ext-install pdo_pgsql
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
 FROM build-base AS build-pcov
-RUN pecl install pcov-1.0.6
+RUN pecl install pcov-1.0.11
 RUN docker-php-ext-enable pcov
 RUN cp `php -i | grep ^extension_dir | cut -f 3 -d ' '`/*.so /tmp/
 
