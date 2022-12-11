@@ -4,7 +4,7 @@ RUN apt-get update && apt-get dist-upgrade -y && echo "Security Update enforced 
 
 RUN apt-get update && apt-get install --no-install-recommends -y libz-dev libmemcached-dev \
     && rm -rf /var/lib/apt/lists/*
-RUN pecl install memcached-3.1.5
+RUN pecl install memcached-3.2.0
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
 # gd extension
