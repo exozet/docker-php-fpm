@@ -21,7 +21,7 @@ This is a docker php fpm image, based on the official php fpm image. It has the 
   - pdo_pgsql
   - pgsql
   - pcov (1.0.11)
-  - xdebug (3.0.2)
+  - xdebug (3.2.0)
   - opcache
   - pcntl
   - soap
