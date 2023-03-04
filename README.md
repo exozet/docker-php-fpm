@@ -2,6 +2,10 @@
 
 This is a docker php fpm image, based on the official php fpm image.
 
+This project is deprecated:
+
+> The new version (for all php versions after php 7) is available at https://github.com/Endava/docker-php
+
 # Supported Versions
 
 | Version | Branch | Status |
