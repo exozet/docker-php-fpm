@@ -2,7 +2,8 @@ FROM php:8.1-fpm
 
 RUN apt-get update && apt-get dist-upgrade -y && echo "Security Update enforced on 2022/04/01"
 
-RUN apt-get update && apt-get install --no-install-recommends -y libz-dev libmemcached-dev \
+# RUN apt-get update && apt-get install --no-install-recommends -y libz-dev libmemcached-dev \
+RUN apt-get update && apt-get install --no-install-recommends -y libz-dev zlib1g-dev libssl-dev libmemcached-dev libmemcached11 \
     && rm -rf /var/lib/apt/lists/*
 RUN pecl install memcached-3.2.0
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
