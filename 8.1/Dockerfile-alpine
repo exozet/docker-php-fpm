@@ -129,8 +129,8 @@ COPY --from=composer:2.5.1 /usr/bin/composer /usr/local/bin/composer2
 
 COPY composer /usr/local/bin
 RUN chmod +x /usr/local/bin/composer
- 
-RUN apk upgrade -U libsasl libssl1.1 libssl3 openssl zlib libxml2 libretls libcrypto1.1 libcrypto3 sqlite-libs xz libuuid libmount libblkid xz-libs curl libcurl ca-certificates ca-certificates-bundle
+
+RUN apk upgrade -U libsasl libssl3 openssl zlib libxml2 libretls libcrypto1.1 libcrypto3 sqlite-libs xz libuuid libmount libblkid xz-libs curl libcurl ca-certificates ca-certificates-bundle
 
 RUN apk add --no-cache \
     git \
