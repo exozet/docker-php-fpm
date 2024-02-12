@@ -71,8 +71,8 @@ RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug
 RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
-COPY --from=composer:1.10.26 /usr/bin/composer /usr/local/bin/composer1
-COPY --from=composer:2.5.1 /usr/bin/composer /usr/local/bin/composer2
+COPY --from=composer:1.10.27 /usr/bin/composer /usr/local/bin/composer1
+COPY --from=composer:2.7.1 /usr/bin/composer /usr/local/bin/composer2
 
 COPY composer /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
