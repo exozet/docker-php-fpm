@@ -70,11 +70,9 @@ RUN echo "zend_extension=`php -i | grep ^extension_dir | cut -f 3 -d ' '`/xdebug
 RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
-COPY --from=composer:1.10.27 /usr/bin/composer /usr/local/bin/composer1
-COPY --from=composer:2.7.1 /usr/bin/composer /usr/local/bin/composer2
-
-COPY composer /usr/local/bin/composer
-RUN chmod +x /usr/local/bin/composer
+RUN curl -L https://github.com/composer/composer/releases/download/1.10.27/composer.phar > /usr/local/bin/composer1 && chmod +x /usr/local/bin/composer1
+RUN curl -L https://github.com/composer/composer/releases/download/2.7.1/composer.phar > /usr/local/bin/composer2 && chmod +x /usr/local/bin/composer2
+ADD composer /usr/local/bin/composer
 
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
