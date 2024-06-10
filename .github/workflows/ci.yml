@@ -8,7 +8,7 @@ on:
 
 env:
     ALIAS_VERSION: '8.2'
-    VERSION_FOR_ALIAS: '8.2.18'
+    VERSION_FOR_ALIAS: '8.2.19'
 
 jobs:
     ci:
@@ -21,6 +21,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
+                    - '8.2.19'
                     - '8.2.18'
                     - '8.2.17'
                     - '8.2.16'
