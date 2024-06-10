@@ -79,7 +79,7 @@ xdebug.idekey=${PHP_XDEBUG_IDEKEY}
 ### Run PHP-FPM Server
 
 ```console
-$ docker run --rm -p 9000:9000 -v `pwd`:/usr/src/app exozet/php-fpm:8.1.3
+$ docker run --rm -p 9000:9000 -v `pwd`:/usr/src/app exozet/php-fpm:8.3.8
 ```
 
 ### Run PHP-CLI
@@ -87,17 +87,17 @@ $ docker run --rm -p 9000:9000 -v `pwd`:/usr/src/app exozet/php-fpm:8.1.3
 If you want to launch a shell:
 
 ```console
-$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:8.1.3 bash
+$ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:8.3.8 bash
 ```
 
 If you want to run a php command:
 
 ```console
 $ docker run --rm -it -v `pwd`:/usr/src/app --user "${UID:www-data}:${GROUPS[0]:www-data}" exozet/php-fpm:5.5.38 php -v
-PHP 8.1.3 (cli) (built: Mar  1 2022 19:30:44) (NTS)
+PHP 8.3.8 (cli) (built: Mar  1 2022 19:30:44) (NTS)
 Copyright (c) The PHP Group
 Zend Engine v4.1.3, Copyright (c) Zend Technologies
-    with Zend OPcache v8.1.3, Copyright (c), by Zend Technologies
+    with Zend OPcache v8.3.8, Copyright (c), by Zend Technologies
     with Xdebug v3.1.2, Copyright (c) 2002-2021, by Derick Rethans
 ```
 
@@ -106,11 +106,11 @@ If you want to run composer:
 set ```COMPOSER_VERSION``` to the major version you want to use (default ```COMPOSER_VERSION=2``` ) 
 
 ```console
-$ docker run --rm -it -v `pwd`:/usr/src/app  exozet/php-fpm:8.1.3 composer --version
+$ docker run --rm -it -v `pwd`:/usr/src/app  exozet/php-fpm:8.3.8 composer --version
 Composer version 1.10.17 2020-10-30 22:31:58
-$ docker run --rm -it -e COMPOSER_VERSION=1 -v `pwd`:/usr/src/app  exozet/php-fpm:8.1.3 composer --version
+$ docker run --rm -it -e COMPOSER_VERSION=1 -v `pwd`:/usr/src/app  exozet/php-fpm:8.3.8 composer --version
 Composer version 1.10.17 2020-10-30 22:31:58
-$ docker run --rm -it -e COMPOSER_VERSION=2 -v `pwd`:/usr/src/app  exozet/php-fpm:8.1.3 composer --version
+$ docker run --rm -it -e COMPOSER_VERSION=2 -v `pwd`:/usr/src/app  exozet/php-fpm:8.3.8 composer --version
 Composer version 2.0.7 2020-11-13 17:31:06
 ```
 
@@ -157,7 +157,7 @@ You can define the crontab's content with an environment variable like this:
 ```yaml
 services:
   import-data-cron:
-    image: exozet/php-fpm:8.1.3
+    image: exozet/php-fpm:8.3.8
     command: start-cron
     environment:
       - 'CRONTAB_USER=www-data'
@@ -201,7 +201,7 @@ Usage in your `docker-compose.yml`:
 ```yaml
 services:
   crontab:
-    image: exozet/php-fpm:8.1.3
+    image: exozet/php-fpm:8.3.8
     command: start-cron
     volumes:
       - ./:/usr/src/app
@@ -214,7 +214,7 @@ cron location with the `CRON_PATH` environment variable:
 ```yaml
 services:
   crontab:
-    image: exozet/php-fpm:8.1.3
+    image: exozet/php-fpm:8.3.8
     command: start-cron
     environment:
       - CRON_PATH=/usr/src/app/crontabs
@@ -231,7 +231,7 @@ version: "2.1"
 
 services:
   php-cli:
-    image: exozet/php-fpm:8.1.3-sudo
+    image: exozet/php-fpm:8.3.8-sudo
     volumes:
       - ./:/usr/src/app
     user: "${UID-www-data}:${GID-www-data}"
@@ -239,7 +239,7 @@ services:
     depends_on:
       - nginx
   php-fpm:
-    image: exozet/php-fpm:8.1.3
+    image: exozet/php-fpm:8.3.8
     volumes:
       - ./:/usr/src/app
   nginx:

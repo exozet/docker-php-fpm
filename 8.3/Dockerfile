@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.3-fpm
 
 RUN apt-get update && apt-get dist-upgrade -y && echo "Security Update enforced on 2022/04/01"
 
