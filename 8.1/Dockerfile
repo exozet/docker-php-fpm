@@ -72,7 +72,7 @@ RUN docker-php-ext-install soap
 
 ENV COMPOSER_HOME=/composer
 RUN curl -L https://github.com/composer/composer/releases/download/1.10.27/composer.phar > /usr/local/bin/composer1 && chmod +x /usr/local/bin/composer1
-RUN curl -L https://github.com/composer/composer/releases/download/2.7.1/composer.phar > /usr/local/bin/composer2 && chmod +x /usr/local/bin/composer2
+RUN curl -L https://github.com/composer/composer/releases/download/2.7.7/composer.phar > /usr/local/bin/composer2 && chmod +x /usr/local/bin/composer2
 ADD composer /usr/local/bin/composer
 
 
