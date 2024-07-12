@@ -11,7 +11,6 @@ This project is deprecated:
 
 | Version | Branch                                                                   | Status                                                             |
 |---------|--------------------------------------------------------------------------|--------------------------------------------------------------------|
-| **8.3** | [release/8.3](https://github.com/exozet/docker-php-fpm/tree/release/8.3) | [![Build Status][github_actions_83_badge]][github_actions_83_link] |
 | **8.2** | [release/8.2](https://github.com/exozet/docker-php-fpm/tree/release/8.2) | [![Build Status][github_actions_82_badge]][github_actions_82_link] |
 | **8.1** | [release/8.1](https://github.com/exozet/docker-php-fpm/tree/release/8.1) | [![Build Status][github_actions_81_badge]][github_actions_81_link] |
 | **8.0** | [release/8.0](https://github.com/exozet/docker-php-fpm/tree/release/8.0) | [![Build Status][github_actions_80_badge]][github_actions_80_link] |
